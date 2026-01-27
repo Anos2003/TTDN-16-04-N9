@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <!-- ==================== FORM VIEW ==================== -->
+  <record id="view_chat_message_form" model="ir.ui.view">
+    <field name="name">chat.message.form</field>
+    <field name="model">chat.message</field>
+    <field name="arch" type="xml">
+      <form string="Tin nhắn">
+        <header>
+          <button name="action_mark_as_read" string="✅ Đánh dấu đã đọc" type="object" class="btn-primary"/>
+          <button name="action_reply" string="💬 Trả lời" type="object" class="btn-secondary"/>
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="room_id" options="{'no_create': True}"/>
+              <field name="sender_id" options="{'no_create': True}"/>
+              <field name="message_type" widget="radio"/>
+            </group>
+            <group>
+              <field name="create_date" readonly="1"/>
+              <field name="read_count"/>
+              <field name="is_read_by_me"/>
+              <field name="reply_count"/>
+            </group>
+          </group>
+          
+          <group string="Nội dung tin nhắn">
+            <field name="content" widget="text" nolabel="1" placeholder="Nhập nội dung tin nhắn..."/>
+          </group>
+          
+          <group string="Trả lời tin nhắn" attrs="{'invisible': [('parent_id', '=', False)]}">
+            <field name="parent_id" readonly="1"/>
+          </group>
+          
+          <notebook>
+            <page string="📎 File đính kèm" name="attachments">
+              <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+            </page>
+            <page string="👁️ Người đã đọc" name="read_by">
+              <field name="read_by_ids" widget="many2many_tags" nolabel="1"/>
+            </page>
+            <page string="😊 Reactions" name="reactions">
+              <field name="reaction_ids" nolabel="1">
+                <tree editable="bottom">
+                  <field name="employee_id"/>
+                  <field name="emoji"/>
+                  <field name="create_date" readonly="1"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- ==================== TREE VIEW ==================== -->
+  <record id="view_chat_message_tree" model="ir.ui.view">
+    <field name="name">chat.message.tree</field>
+    <field name="model">chat.message</field>
+    <field name="arch" type="xml">
+      <tree string="Tin nhắn" decoration-bf="is_read_by_me==False">
+        <field name="room_id"/>
+        <field name="sender_id"/>
+        <field name="content"/>
+        <field name="message_type"/>
+        <field name="create_date"/>
+        <field name="read_count"/>
+        <field name="attachment_count"/>
+        <field name="is_read_by_me" invisible="1"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- ==================== SEARCH VIEW ==================== -->
+  <record id="view_chat_message_search" model="ir.ui.view">
+    <field name="name">chat.message.search</field>
+    <field name="model">chat.message</field>
+    <field name="arch" type="xml">
+      <search string="Tìm kiếm tin nhắn">
+        <field name="content" string="Nội dung"/>
+        <field name="sender_id" string="Người gửi"/>
+        <field name="room_id" string="Phòng chat"/>
+        <separator/>
+        <filter name="filter_my_messages" string="📝 Tin nhắn của tôi" 
+                domain="[('sender_user_id', '=', uid)]"/>
+        <filter name="filter_unread" string="📭 Chưa đọc" 
+                domain="[('read_by_ids', 'not in', uid)]"/>
+        <separator/>
+        <filter name="filter_today" string="📅 Hôm nay" 
+                domain="[('create_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+        <group expand="0" string="Nhóm theo">
+          <filter name="group_room" string="Phòng chat" context="{'group_by': 'room_id'}"/>
+          <filter name="group_sender" string="Người gửi" context="{'group_by': 'sender_id'}"/>
+          <filter name="group_date" string="Ngày" context="{'group_by': 'create_date'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- ==================== ACTION ==================== -->
+  <record id="action_chat_message" model="ir.actions.act_window">
+    <field name="name">💬 Tin nhắn</field>
+    <field name="res_model">chat.message</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{'search_default_filter_today': 1}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Chưa có tin nhắn nào
+      </p>
+      <p>
+        Chọn một phòng chat để bắt đầu trò chuyện.
+      </p>
+    </field>
+  </record>
+  </data>
+</odoo>

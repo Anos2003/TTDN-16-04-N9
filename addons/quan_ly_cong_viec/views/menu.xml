@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <menuitem id="menu_cong_viec" name="✅ Công việc" parent="quan_ly_du_an.menu_du_an_root" sequence="2" action="action_cong_viec" icon="fa-check-circle"/>
+  </data>
+</odoo>

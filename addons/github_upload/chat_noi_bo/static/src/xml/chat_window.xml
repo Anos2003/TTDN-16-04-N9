@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    
+    <!-- Main Template -->
+    <t t-name="chat_noi_bo.ChatWindow">
+        <div class="o_chat_window">
+            <!-- Sidebar: Danh sách phòng chat -->
+            <div class="o_chat_sidebar">
+                <div class="o_chat_sidebar_header">
+                    <h3>💬 Chat</h3>
+                    <button class="btn btn-sm btn-primary" data-action="refresh">
+                        <i class="fa fa-refresh"/>
+                    </button>
+                </div>
+                
+                <div class="o_chat_room_list">
+                    <!-- Room items will be rendered here -->
+                </div>
+            </div>
+            
+            <!-- Main: Khung chat -->
+            <div class="o_chat_main">
+                <div class="o_chat_empty">
+                    <i class="fa fa-comments-o fa-4x"/>
+                    <p>Chọn một phòng chat để bắt đầu</p>
+                </div>
+            </div>
+        </div>
+    </t>
+    
+    <!-- Room Item Template -->
+    <t t-name="chat_noi_bo.RoomItem">
+        <div t-attf-class="o_chat_room_item #{isActive ? 'active' : ''}" t-att-data-room-id="room.id">
+            <div class="o_chat_room_icon">
+                <i t-if="room.room_type === 'general'" class="fa fa-users"/>
+                <i t-elif="room.room_type === 'project'" class="fa fa-folder"/>
+                <i t-elif="room.room_type === 'department'" class="fa fa-building"/>
+                <i t-else="" class="fa fa-user"/>
+            </div>
+            <div class="o_chat_room_info">
+                <div class="o_chat_room_name" t-esc="room.name"/>
+                <div class="o_chat_room_date" t-esc="formatDate(room.last_message_date)"/>
+            </div>
+            <t t-if="room.unread_count &gt; 0">
+                <span class="badge badge-danger" t-esc="room.unread_count"/>
+            </t>
+        </div>
+    </t>
+    
+    <!-- Chat Main Content -->
+    <t t-name="chat_noi_bo.ChatMain">
+        <!-- Header -->
+        <div class="o_chat_header">
+            <h4 t-esc="selectedRoom.name"/>
+        </div>
+        
+        <!-- Messages -->
+        <div class="o_chat_messages">
+            <!-- Messages will be rendered here -->
+        </div>
+        
+        <!-- Input -->
+        <div class="o_chat_input">
+            <textarea 
+                class="form-control" 
+                placeholder="Nhập tin nhắn..."
+                rows="2"></textarea>
+            <button class="btn btn-primary" data-action="send">
+                <i class="fa fa-paper-plane"/> Gửi
+            </button>
+        </div>
+    </t>
+    
+    <!-- Message Item Template -->
+    <t t-name="chat_noi_bo.MessageItem">
+        <div t-attf-class="o_chat_message #{isMine ? 'o_chat_message_mine' : ''}">
+            <div class="o_chat_message_avatar">
+                <i class="fa fa-user-circle"/>
+            </div>
+            <div class="o_chat_message_content">
+                <div class="o_chat_message_sender">
+                    <strong t-esc="message.sender_id[1]"/>
+                    <span class="o_chat_message_time" t-esc="formatDate(message.create_date)"/>
+                </div>
+                <div class="o_chat_message_text" t-esc="message.content"/>
+            </div>
+        </div>
+    </t>
+    
+</templates>

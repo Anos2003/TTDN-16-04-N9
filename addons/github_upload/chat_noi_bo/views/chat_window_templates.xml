@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="assets_backend" name="chat_noi_bo assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/chat_noi_bo/static/src/css/chat_window.css?v=20260121b"/>
+            <script type="text/javascript" src="/chat_noi_bo/static/src/js/chat_window.js?v=20260121b"></script>
+        </xpath>
+    </template>
+  </data>
+</odoo>

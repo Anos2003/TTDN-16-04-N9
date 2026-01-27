@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <!-- Main Menu -->
+  <menuitem id="menu_chat_root"
+            name="💬 Chat Nội Bộ"
+            sequence="10"
+            action="action_chat_window"
+            web_icon="chat_noi_bo,static/description/icon.png"/>
+
+  <!-- Sub Menus -->
+  <menuitem id="menu_chat_window"
+            name="💬 Chat"
+            parent="menu_chat_root"
+            action="action_chat_window"
+            sequence="5"/>
+
+  <menuitem id="menu_chat_room"
+            name="Quản lý phòng chat"
+            parent="menu_chat_root"
+            action="action_chat_room"
+            sequence="10"/>
+
+  <menuitem id="menu_chat_message"
+            name="Lịch sử tin nhắn"
+            parent="menu_chat_root"
+            action="action_chat_message"
+            sequence="20"/>
+  </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_intent_detector,access_ai_intent_detector,model_ai_intent_detector,base.group_user,1,0,0,0
+access_ai_chatbot_processor,access_ai_chatbot_processor,model_ai_chatbot_processor,base.group_user,1,0,0,0
+access_chat_message_extend_user,access_chat_message_extend_user,chat_noi_bo.model_chat_message,base.group_user,1,1,1,1
+access_chat_room_user,access_chat_room_user,chat_noi_bo.model_chat_room,base.group_user,1,1,1,0

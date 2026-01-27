@@ -1,0 +1,65 @@
+HƯỚNG DẪN UPLOAD LÊN GITHUB
+================================
+
+Repository: https://github.com/danganh1009/TTDN-16-04-N9.git
+
+BƯỚC 1: Mở terminal trên máy host (không phải trong Docker container)
+
+BƯỚC 2: Di chuyển vào thư mục này:
+cd /mnt/extra-addons/github_upload
+
+BƯỚC 3: Chạy các lệnh sau:
+
+# Khởi tạo git repository
+git init
+
+# Cấu hình user (thay đổi email và tên của bạn)
+git config user.email "your-email@example.com"
+git config user.name "Your Name"
+
+# Thêm remote repository
+git remote add origin https://github.com/danganh1009/TTDN-16-04-N9.git
+
+# Tạo .gitignore
+cat > .gitignore << 'EOF'
+*.pyc
+*.pyo
+__pycache__/
+*.swp
+*.swo
+*~
+.DS_Store
+*.log
+EOF
+
+# Thêm tất cả file
+git add .
+
+# Commit
+git commit -m "Upload các module: nhân sự, dự án, công việc, thông báo, chat nội bộ và AI chatbot"
+
+# Đổi tên branch thành main
+git branch -M main
+
+# Push lên GitHub (lần đầu cần force)
+git push -u origin main --force
+
+================================
+HOẶC: Chạy script tự động
+================================
+
+./upload_to_github.sh
+
+================================
+LƯU Ý:
+- Cần có git installed trên máy host
+- Cần có quyền truy cập vào GitHub repository
+- Có thể cần nhập username/password hoặc personal access token
+
+Các module đã được chuẩn bị:
+- nhan_su (Module nhân sự)
+- quan_ly_du_an (Module quản lý dự án)
+- quan_ly_cong_viec (Module quản lý công việc)
+- thong_bao (Module thông báo)
+- chat_noi_bo (Module chat nội bộ)
+- ai_chatbot (Module AI chatbot)

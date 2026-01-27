@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <!-- Main Menu -->
+  <menuitem id="menu_thong_bao_root" name="📬 Thông báo" sequence="5" web_icon="thong_bao,static/description/icon.png"/>
+  <!-- Sub Menus -->
+  <menuitem id="menu_thong_bao_notification" name="📬 Danh sách thông báo" parent="menu_thong_bao_root" action="action_thong_bao_notification" sequence="10"/>
+  <menuitem id="menu_thong_bao_tag" name="🏷️ Tags" parent="menu_thong_bao_root" action="action_thong_bao_tag" sequence="20"/>
+  </data>
+</odoo>

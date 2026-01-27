@@ -1,0 +1,241 @@
+/* AI Chatbot Widget Styles for Odoo 15 */
+
+.o_ai_chatbot_container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.o_ai_chat_header {
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.o_ai_chat_header i {
+    margin-right: 10px;
+}
+
+#ai_chat_messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f8f9fa;
+}
+
+.o_ai_message {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    max-width: 80%;
+    animation: fadeIn 0.3s ease;
+}
+
+.o_user_message {
+    background: #007bff;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.o_ai_response {
+    background: white;
+    border: 1px solid #dee2e6;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.o_message_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.o_avatar {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.o_sender {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.o_time {
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+.o_message_body {
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.o_message_body strong {
+    font-weight: 600;
+    color: #667eea;
+}
+
+.o_typing_indicator {
+    padding: 10px 15px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    display: inline-block;
+    animation: fadeIn 0.3s ease;
+}
+
+.o_typing_indicator .o_dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #667eea;
+    margin: 0 2px;
+    animation: typing 1.4s infinite;
+}
+
+.o_typing_indicator .o_dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.o_typing_indicator .o_dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.o_ai_chat_input_area {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    gap: 8px;
+}
+
+#ai_chat_input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+#ai_chat_input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+#ai_ask_btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+#ai_ask_btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+#ai_send_btn {
+    padding: 8px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+#ai_send_btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+#ai_send_btn:disabled,
+#ai_ask_btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.o_ai_help_text {
+    padding: 10px 15px;
+    font-size: 12px;
+    color: #6c757d;
+    text-align: center;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.o_ai_help_text strong {
+    color: #667eea;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Scrollbar */
+#ai_chat_messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+#ai_chat_messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#ai_chat_messages::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 3px;
+}
+
+#ai_chat_messages::-webkit-scrollbar-thumb:hover {
+    background: #764ba2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .o_ai_chatbot_container {
+        height: 400px;
+    }
+    
+    .o_ai_message {
+        max-width: 90%;
+    }
+}

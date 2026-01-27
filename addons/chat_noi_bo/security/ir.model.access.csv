@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_chat_room_all,access_chat_room_all,model_chat_room,base.group_user,1,1,1,1
+access_chat_message_all,access_chat_message_all,model_chat_message,base.group_user,1,1,1,1
+access_chat_message_reaction_all,access_chat_message_reaction_all,model_chat_message_reaction,base.group_user,1,1,1,1

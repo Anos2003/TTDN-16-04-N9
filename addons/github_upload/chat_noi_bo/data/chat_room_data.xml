@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Phòng chat chung cho tất cả -->
+        <record id="chat_room_general" model="chat.room">
+            <field name="name">💬 Chat Chung - Toàn Công Ty</field>
+            <field name="description">Phòng chat chung cho tất cả nhân viên trong công ty</field>
+            <field name="room_type">general</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <!-- Phòng thông báo -->
+        <record id="chat_room_announcement" model="chat.room">
+            <field name="name">📢 Thông Báo Chung</field>
+            <field name="description">Phòng chat cho các thông báo quan trọng từ ban quản lý</field>
+            <field name="room_type">general</field>
+            <field name="is_announcement_room" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

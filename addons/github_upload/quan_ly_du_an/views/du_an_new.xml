@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <!-- Form View - Thiết kế đẹp với Header, Statusbar, và Tabs -->
+  <record id="view_du_an_form" model="ir.ui.view">
+    <field name="name">du_an.form</field>
+    <field name="model">du_an</field>
+    <field name="arch" type="xml">
+      <form string="Dự án">
+        <header>
+          <button name="action_start" string="Bắt đầu" type="object" attrs="{'invisible': [('trang_thai', 'not in', ['draft', 'planning'])]}" class="oe_highlight"/>
+          <button name="action_complete" string="Hoàn thành" type="object" attrs="{'invisible': [('trang_thai', 'not in', ['in_progress', 'review'])]}" class="oe_highlight"/>
+          <button name="action_cancel" string="Hủy" type="object" attrs="{'invisible': [('trang_thai', 'not in', ['draft', 'planning', 'in_progress'])]}" class="btn-secondary"/>
+          <field name="trang_thai" widget="statusbar" statusbar_visible="draft,planning,in_progress,review,done"/>
+        </header>
+        <sheet>
+          <!-- Title Section -->
+          <div class="oe_title">
+            <label for="name" class="oe_edit_only"/>
+            <h1>
+              <field name="name" placeholder="Tên dự án..." required="1"/>
+            </h1>
+          </div>
+          <!-- Main Information -->
+          <group>
+            <group string="📋 Thông tin cơ bản">
+              <field name="quan_ly_id" options="{'no_create': True, 'no_open': True}"/>
+              <field name="ngay_bat_dau"/>
+              <field name="ngay_ket_thuc"/>
+            </group>
+            <group string="📊 Mô tả">
+              <field name="mo_ta" nolabel="1" placeholder="Mô tả chi tiết về dự án..."/>
+            </group>
+          </group>
+          <notebook>
+            <page string="📝 Chi tiết" name="details">
+              <group>
+                <group>
+                  <field name="ngay_bat_dau"/>
+                  <field name="ngay_ket_thuc"/>
+                </group>
+                <group>
+                  <field name="quan_ly_id"/>
+                </group>
+              </group>
+            </page>
+            <page string="💼 Công việc" name="tasks">
+              <field name="cong_viec_ids" mode="tree">
+                <tree decoration-success="trang_thai=='done'" decoration-danger="trang_thai=='cancelled'" decoration-warning="priority in ['high', 'critical']">
+                  <field name="name"/>
+                  <field name="assigned_to_id"/>
+                  <field name="ngay_ket_thuc"/>
+                  <field name="priority" widget="priority"/>
+                  <field name="trang_thai" widget="badge" decoration-success="trang_thai=='done'" decoration-info="trang_thai=='in_progress'" decoration-warning="trang_thai=='todo'"/>
+                </tree>
+              </field>
+            </page>
+            <page string="📌 Ghi chú" name="notes">
+              <field name="mo_ta" nolabel="1" placeholder="Ghi chú thêm về dự án..."/>
+            </page>
+          </notebook>
+        </sheet>
+        <!-- Chatter -->
+        <div class="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <!-- Tree View - Danh sách với màu sắc -->
+  <record id="view_du_an_tree" model="ir.ui.view">
+    <field name="name">du_an.tree</field>
+    <field name="model">du_an</field>
+    <field name="arch" type="xml">
+      <tree string="Dự án" decoration-success="trang_thai=='done'" decoration-info="trang_thai=='in_progress'" decoration-muted="trang_thai=='cancelled'">
+        <field name="name"/>
+        <field name="quan_ly_id"/>
+        <field name="ngay_bat_dau"/>
+        <field name="ngay_ket_thuc"/>
+        <field name="trang_thai" decoration-success="trang_thai=='done'" decoration-info="trang_thai=='in_progress'" decoration-warning="trang_thai in ['draft', 'planning']" decoration-danger="trang_thai=='cancelled'"/>
+      </tree>
+    </field>
+  </record>
+  <!-- Kanban View - Quản lý dự án theo trạng thái -->
+  <record id="view_du_an_kanban" model="ir.ui.view">
+    <field name="name">du_an.kanban</field>
+    <field name="model">du_an</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="trang_thai" class="o_kanban_small_column">
+        <field name="name"/>
+        <field name="quan_ly_id"/>
+        <field name="ngay_bat_dau"/>
+        <field name="ngay_ket_thuc"/>
+        <field name="trang_thai"/>
+        <templates>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_card oe_kanban_global_click">
+              <div class="o_kanban_card_header">
+                <div class="o_kanban_card_header_title">
+                  <div class="o_primary">
+                    <strong>
+                      <field name="name"/>
+                    </strong>
+                  </div>
+                  <div class="o_secondary">
+                    <i class="fa fa-user"/>
+                    <field name="quan_ly_id"/>
+                  </div>
+                </div>
+              </div>
+              <div class="o_kanban_card_content">
+                <div class="o_kanban_card_body">
+                  <div><i class="fa fa-calendar"/><field name="ngay_bat_dau"/> → <field name="ngay_ket_thuc"/>
+            </div>
+                </div>
+              </div>
+              <div class="o_kanban_card_footer">
+                <div class="oe_kanban_footer_left">
+                  <span class="badge badge-pill">
+                    <field name="trang_thai"/>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <!-- Search View - Tìm kiếm và lọc nâng cao -->
+  <record model="ir.ui.view" id="du_an_search">
+    <field name="name">du_an.search</field>
+    <field name="model">du_an</field>
+    <field name="arch" type="xml">
+      <search string="Tìm kiếm dự án">
+        <field name="name" string="Dự án" filter_domain="[('name', 'ilike', self)]"/>
+        <field name="quan_ly_id" string="Quản lý"/>
+        <field name="mo_ta" string="Mô tả"/>
+        <separator/>
+        <!-- Filters theo trạng thái -->
+        <filter string="📝 Nháp" name="draft" domain="[('trang_thai', '=', 'draft')]"/>
+        <filter string="📋 Đang lập kế hoạch" name="planning" domain="[('trang_thai', '=', 'planning')]"/>
+        <filter string="⚙️ Đang thực hiện" name="in_progress" domain="[('trang_thai', '=', 'in_progress')]"/>
+        <filter string="🔍 Đang đánh giá" name="review" domain="[('trang_thai', '=', 'review')]"/>
+        <filter string="✅ Hoàn thành" name="done" domain="[('trang_thai', '=', 'done')]"/>
+        <filter string="❌ Đã hủy" name="cancelled" domain="[('trang_thai', '=', 'cancelled')]"/>
+        <separator/>
+        <!-- Group By -->
+        <group expand="0" string="Nhóm theo">
+          <filter string="Trạng thái" name="group_trang_thai" context="{'group_by': 'trang_thai'}"/>
+          <filter string="Quản lý" name="group_quan_ly" context="{'group_by': 'quan_ly_id'}"/>
+          <filter string="Ngày bắt đầu" name="group_ngay_bat_dau" context="{'group_by': 'ngay_bat_dau'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+  <!-- Action với nhiều view modes -->
+  <record id="action_du_an" model="ir.actions.act_window">
+    <field name="name">Dự án</field>
+    <field name="res_model">du_an</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="search_view_id" ref="du_an_search"/>
+    <field name="context">{'search_default_in_progress': 1}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+            Tạo dự án mới
+            </p>
+      <p>
+            Quản lý các dự án của công ty. Theo dõi tiến độ, phân công công việc và đánh giá kết quả.
+            </p>
+    </field>
+  </record>
+  </data>
+</odoo>

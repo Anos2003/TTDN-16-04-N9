@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <!-- Form View - Thiết kế đẹp với Header, Priority và Tabs -->
+  <record id="view_cong_viec_form" model="ir.ui.view">
+    <field name="name">cong_viec.form</field>
+    <field name="model">cong_viec</field>
+    <field name="arch" type="xml">
+      <form string="Công việc">
+        <header>
+          <button name="action_start" string="Bắt đầu" type="object" attrs="{'invisible': [('trang_thai', '!=', 'todo')]}" class="oe_highlight"/>
+          <button name="action_review" string="Gửi đánh giá" type="object" attrs="{'invisible': [('trang_thai', '!=', 'in_progress')]}" class="oe_highlight"/>
+          <button name="action_done" string="Hoàn thành" type="object" attrs="{'invisible': [('trang_thai', '!=', 'review')]}" class="oe_highlight"/>
+          <button name="action_cancel" string="Hủy" type="object" attrs="{'invisible': [('trang_thai', 'not in', ['todo', 'in_progress'])]}" class="btn-secondary"/>
+          <field name="trang_thai" widget="statusbar" statusbar_visible="todo,in_progress,review,done"/>
+        </header>
+        <sheet>
+          <!-- Title with Priority -->
+          <div class="oe_title">
+            <label for="name" class="oe_edit_only"/>
+            <h1>
+              <field name="priority" widget="priority" class="mr-3"/>
+              <field name="name" placeholder="Tên công việc..." required="1"/>
+            </h1>
+          </div>
+          <!-- Main Information -->
+          <group>
+            <group string="📋 Thông tin công việc">
+              <field name="du_an_id" options="{'no_create': True}"/>
+              <field name="assigned_to_id" options="{'no_create': True, 'no_open': True}"/>
+              <field name="priority" widget="priority"/>
+            </group>
+            <group string="📅 Thời gian">
+              <field name="ngay_bat_dau"/>
+              <field name="ngay_ket_thuc"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="📝 Mô tả" name="description">
+              <field name="mo_ta" nolabel="1" placeholder="Mô tả chi tiết công việc, yêu cầu, kết quả mong đợi..."/>
+            </page>
+            <page string="⚙️ Chi tiết" name="details">
+              <group>
+                <group string="Thông tin">
+                  <field name="du_an_id"/>
+                  <field name="assigned_to_id"/>
+                </group>
+                <group string="Lịch trình">
+                  <field name="ngay_bat_dau"/>
+                  <field name="ngay_ket_thuc"/>
+                </group>
+              </group>
+            </page>
+            <page string="📌 Ghi chú" name="notes">
+              <group>
+                <field name="mo_ta" nolabel="1" placeholder="Ghi chú thêm, cập nhật tiến độ..."/>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+        <!-- Chatter -->
+        <div class="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <!-- Tree View - Danh sách với màu sắc và decoration -->
+  <record id="view_cong_viec_tree" model="ir.ui.view">
+    <field name="name">cong_viec.tree</field>
+    <field name="model">cong_viec</field>
+    <field name="arch" type="xml">
+      <tree string="Công việc" decoration-success="trang_thai=='done'" decoration-info="trang_thai=='in_progress'" decoration-danger="priority in ['high', 'critical']" decoration-muted="trang_thai=='cancelled'">
+        <field name="priority" widget="priority"/>
+        <field name="name"/>
+        <field name="du_an_id"/>
+        <field name="assigned_to_id"/>
+        <field name="ngay_bat_dau" optional="show"/>
+        <field name="ngay_ket_thuc"/>
+        <field name="trang_thai" decoration-success="trang_thai=='done'" decoration-info="trang_thai=='in_progress'" decoration-warning="trang_thai=='todo'" decoration-danger="trang_thai=='cancelled'"/>
+      </tree>
+    </field>
+  </record>
+  <!-- Kanban View - Quản lý công việc theo trạng thái -->
+  <record id="view_cong_viec_kanban" model="ir.ui.view">
+    <field name="name">cong_viec.kanban</field>
+    <field name="model">cong_viec</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="trang_thai" class="o_kanban_small_column" quick_create="false">
+        <field name="name"/>
+        <field name="du_an_id"/>
+        <field name="assigned_to_id"/>
+        <field name="ngay_ket_thuc"/>
+        <field name="priority"/>
+        <field name="trang_thai"/>
+        <templates>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_card oe_kanban_global_click">
+              <div class="o_kanban_card_header">
+                <div class="o_kanban_card_header_title">
+                  <div class="o_primary">
+                    <field name="priority" widget="priority"/>
+                    <strong class="ml8">
+                      <field name="name"/>
+                    </strong>
+                  </div>
+                </div>
+                <div class="o_dropdown_kanban dropdown">
+                  <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                    <span class="fa fa-ellipsis-v"/>
+                  </a>
+                  <div class="dropdown-menu" role="menu">
+                    <a role="menuitem" type="edit" class="dropdown-item">Sửa</a>
+                    <a role="menuitem" type="delete" class="dropdown-item">Xóa</a>
+                  </div>
+                </div>
+              </div>
+              <div class="o_kanban_card_content">
+                <div class="o_kanban_card_body">
+                  <div class="text-muted">
+                    <i class="fa fa-folder-o"/>
+                    <field name="du_an_id"/>
+                  </div>
+                  <div t-if="record.assigned_to_id.raw_value">
+                    <i class="fa fa-user"/>
+                    <field name="assigned_to_id"/>
+                  </div>
+                  <div class="text-muted">
+                    <i class="fa fa-calendar"/>
+                    <field name="ngay_ket_thuc"/>
+                  </div>
+                </div>
+              </div>
+              <div class="o_kanban_card_footer">
+                <div class="oe_kanban_footer_left">
+                  <field name="priority" widget="priority"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <!-- Calendar View - Lịch công việc -->
+  <record id="view_cong_viec_calendar" model="ir.ui.view">
+    <field name="name">cong_viec.calendar</field>
+    <field name="model">cong_viec</field>
+    <field name="arch" type="xml">
+      <calendar string="Lịch công việc" date_start="ngay_bat_dau" date_stop="ngay_ket_thuc" color="assigned_to_id" quick_add="False" event_open_popup="true" mode="month">
+        <field name="name"/>
+        <field name="du_an_id"/>
+        <field name="priority" widget="priority"/>
+      </calendar>
+    </field>
+  </record>
+  <!-- Search View - Tìm kiếm và lọc nâng cao -->
+  <record model="ir.ui.view" id="cong_viec_search">
+    <field name="name">cong_viec.search</field>
+    <field name="model">cong_viec</field>
+    <field name="arch" type="xml">
+      <search string="Tìm kiếm công việc">
+        <field name="name" string="Công việc" filter_domain="[('name', 'ilike', self)]"/>
+        <field name="du_an_id" string="Dự án"/>
+        <field name="assigned_to_id" string="Người thực hiện"/>
+        <field name="mo_ta" string="Mô tả"/>
+        <separator/>
+        <!-- Filters theo trạng thái -->
+        <filter string="📝 Chưa bắt đầu" name="todo" domain="[('trang_thai', '=', 'todo')]"/>
+        <filter string="⚙️ Đang thực hiện" name="in_progress" domain="[('trang_thai', '=', 'in_progress')]"/>
+        <filter string="🔍 Đang đánh giá" name="review" domain="[('trang_thai', '=', 'review')]"/>
+        <filter string="✅ Hoàn thành" name="done" domain="[('trang_thai', '=', 'done')]"/>
+        <filter string="❌ Đã hủy" name="cancelled" domain="[('trang_thai', '=', 'cancelled')]"/>
+        <filter string="🚫 Bị chặn" name="blocked" domain="[('trang_thai', '=', 'blocked')]"/>
+        <separator/>
+        <!-- Filters theo ưu tiên -->
+        <filter string="🔴 Ưu tiên cao" name="high_priority" domain="[('priority', 'in', ['high', 'critical'])]"/>
+        <filter string="🔴 Rất khẩn cấp" name="critical" domain="[('priority', '=', 'critical')]"/>
+        <filter string="🟡 Trung bình" name="medium_priority" domain="[('priority', '=', 'medium')]"/>
+        <separator/>
+        <!-- Group By -->
+        <group expand="0" string="Nhóm theo">
+          <filter string="Trạng thái" name="group_trang_thai" context="{'group_by': 'trang_thai'}"/>
+          <filter string="Dự án" name="group_du_an" context="{'group_by': 'du_an_id'}"/>
+          <filter string="Người thực hiện" name="group_assigned" context="{'group_by': 'assigned_to_id'}"/>
+          <filter string="Ưu tiên" name="group_priority" context="{'group_by': 'priority'}"/>
+          <filter string="Ngày kết thúc" name="group_deadline" context="{'group_by': 'ngay_ket_thuc'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+  <!-- Action với nhiều view modes -->
+  <record id="action_cong_viec" model="ir.actions.act_window">
+    <field name="name">Công việc</field>
+    <field name="res_model">cong_viec</field>
+    <field name="view_mode">kanban,tree,form,calendar</field>
+    <field name="search_view_id" ref="cong_viec_search"/>
+    <field name="context">{'search_default_in_progress': 1}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+            Tạo công việc mới
+            </p>
+      <p>
+            Quản lý công việc trong dự án. Theo dõi tiến độ, phân công và đánh giá kết quả.
+            </p>
+    </field>
+  </record>
+  </data>
+</odoo>

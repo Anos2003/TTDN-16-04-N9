@@ -1,0 +1,243 @@
+/* ============================================
+   📬 Thông Báo Module - Custom Styles
+   ============================================ */
+
+/* === Kanban View === */
+.o_kanban_view.o_kanban_small_column .o_kanban_card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.o_kanban_view.o_kanban_small_column .o_kanban_card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+/* Badge Colors */
+.badge-danger {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+.badge-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.badge-success {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+
+.badge-info {
+    background-color: #17a2b8 !important;
+    color: white !important;
+}
+
+.badge-secondary {
+    background-color: #6c757d !important;
+    color: white !important;
+}
+
+/* === Progress Bar === */
+.progress {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+/* === Stat Buttons === */
+.oe_stat_button {
+    transition: all 0.3s ease;
+}
+
+.oe_stat_button:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+}
+
+.oe_stat_button:hover .o_stat_value,
+.oe_stat_button:hover .o_stat_text {
+    color: white !important;
+}
+
+/* === Form View Title === */
+.oe_title h1 {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.oe_title h3 {
+    font-size: 14px;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* === Buttons === */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    border: none;
+    color: white;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    border: none;
+    color: white;
+}
+
+/* === Tree View Decorations === */
+.o_list_table tbody tr.text-danger {
+    background-color: #fff5f5 !important;
+    border-left: 3px solid #dc3545 !important;
+}
+
+.o_list_table tbody tr.text-warning {
+    background-color: #fffbf0 !important;
+    border-left: 3px solid #ffc107 !important;
+}
+
+.o_list_table tbody tr.text-success {
+    background-color: #f0fff4 !important;
+    border-left: 3px solid #28a745 !important;
+}
+
+.o_list_table tbody tr.text-muted {
+    opacity: 0.6;
+}
+
+/* === Kanban Card Header === */
+.o_kanban_card_header {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.o_kanban_card_header_title .o_primary {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+.o_kanban_card_header_title .o_secondary {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+/* === Kanban Card Content === */
+.o_kanban_card_content {
+    padding: 12px;
+}
+
+/* === Kanban Card Footer === */
+.o_kanban_card_footer {
+    padding: 8px 12px;
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+}
+
+.o_kanban_record_bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* === Animation === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.o_kanban_card {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .o_kanban_card {
+        margin-bottom: 10px;
+    }
+    
+    .oe_stat_button {
+        min-height: 60px;
+    }
+}
+
+/* === Custom Colors for Priority === */
+.priority-critical {
+    border-left: 4px solid #dc3545 !important;
+}
+
+.priority-high {
+    border-left: 4px solid #ffc107 !important;
+}
+
+.priority-normal {
+    border-left: 4px solid #17a2b8 !important;
+}
+
+.priority-low {
+    border-left: 4px solid #6c757d !important;
+}
+
+/* === Overdue Warning === */
+.text-danger {
+    color: #dc3545 !important;
+    font-weight: bold;
+}
+
+/* === Status Bar === */
+.o_statusbar_status button {
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-weight: 500;
+}
+
+/* === Many2many Tags === */
+.o_field_many2manytags .badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    margin: 2px;
+    border-radius: 12px;
+}
+
+/* === Calendar View === */
+.o_calendar_view .fc-event {
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 12px;
+}
+
+/* === Chatter === */
+.o_chatter {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 20px;
+}

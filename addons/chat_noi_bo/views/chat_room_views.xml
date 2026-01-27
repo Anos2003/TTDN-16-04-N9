@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <!-- ==================== FORM VIEW ==================== -->
+  <record id="view_chat_room_form" model="ir.ui.view">
+    <field name="name">chat.room.form</field>
+    <field name="model">chat.room</field>
+    <field name="arch" type="xml">
+      <form string="Phòng chat">
+        <header>
+          <button name="action_view_messages" string="💬 Xem tin nhắn" type="object" class="oe_highlight"/>
+          <button name="action_send_message" string="📤 Gửi tin nhắn" type="object" class="btn-primary"/>
+          <button name="action_archive_room" string="🗄️ Lưu trữ" type="object" class="btn-secondary" attrs="{'invisible': [('is_archived', '=', True)]}"/>
+          <button name="action_unarchive_room" string="✅ Kích hoạt lại" type="object" class="btn-success" attrs="{'invisible': [('is_archived', '=', False)]}"/>
+          <field name="is_archived" invisible="1"/>
+        </header>
+        <sheet>
+          <!-- Stat Buttons -->
+          <div class="oe_button_box" name="button_box">
+            <button class="oe_stat_button" type="object" name="action_view_messages" icon="fa-comments">
+              <div class="o_field_widget o_stat_info">
+                <span class="o_stat_value">
+                  <field name="message_count"/>
+                </span>
+                <span class="o_stat_text">Tin nhắn</span>
+              </div>
+            </button>
+            <button class="oe_stat_button" icon="fa-users">
+              <div class="o_field_widget o_stat_info">
+                <span class="o_stat_value">
+                  <field name="member_count"/>
+                </span>
+                <span class="o_stat_text">Thành viên</span>
+              </div>
+            </button>
+          </div>
+          
+          <div class="oe_title">
+            <h1>
+              <field name="name" placeholder="Tên phòng chat..."/>
+            </h1>
+          </div>
+          
+          <group>
+            <group>
+              <field name="room_type" widget="radio"/>
+              <field name="project_id" attrs="{'invisible': [('room_type', '!=', 'project')], 'required': [('room_type', '=', 'project')]}"/>
+              <field name="department_id" attrs="{'invisible': [('room_type', '!=', 'department')]}"/>
+            </group>
+            <group>
+              <field name="created_by_id" readonly="1"/>
+              <field name="create_date" readonly="1"/>
+              <field name="active" invisible="1"/>
+              <field name="color" widget="color"/>
+            </group>
+          </group>
+          
+          <group string="Mô tả">
+            <field name="description" placeholder="Mô tả về phòng chat..." nolabel="1"/>
+          </group>
+          
+          <notebook>
+            <page string="👥 Thành viên" name="members">
+              <field name="member_ids" widget="many2many_tags" options="{'no_create': True}"/>
+            </page>
+            <page string="💬 Tin nhắn gần đây" name="recent_messages">
+              <group>
+                <field name="last_message_date" readonly="1"/>
+                <field name="last_message_preview" readonly="1"/>
+              </group>
+              <separator string="Danh sách tin nhắn"/>
+              <field name="message_ids" nolabel="1" mode="tree">
+                <tree>
+                  <field name="sender_id"/>
+                  <field name="content"/>
+                  <field name="message_type"/>
+                  <field name="create_date"/>
+                  <field name="read_count"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+        <!-- Chatter -->
+        <div class="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="activity_ids"/>
+          <field name="message_ids" mode="tree"/>
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <!-- ==================== TREE VIEW ==================== -->
+  <record id="view_chat_room_tree" model="ir.ui.view">
+    <field name="name">chat.room.tree</field>
+    <field name="model">chat.room</field>
+    <field name="arch" type="xml">
+      <tree string="Phòng chat">
+        <field name="name"/>
+        <field name="room_type"/>
+        <field name="project_id"/>
+        <field name="member_count"/>
+        <field name="message_count"/>
+        <field name="last_message_date"/>
+        <field name="last_message_preview"/>
+        <field name="is_archived"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- ==================== KANBAN VIEW ==================== -->
+  <record id="view_chat_room_kanban" model="ir.ui.view">
+    <field name="name">chat.room.kanban</field>
+    <field name="model">chat.room</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_mobile">
+        <field name="id"/>
+        <field name="name"/>
+        <field name="room_type"/>
+        <field name="member_count"/>
+        <field name="message_count"/>
+        <field name="last_message_preview"/>
+        <field name="last_message_date"/>
+        <field name="color"/>
+        <templates>
+          <t t-name="kanban-box">
+            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+              <div class="o_kanban_record_top">
+                <div class="o_kanban_record_headings">
+                  <strong class="o_kanban_record_title">
+                    <field name="name"/>
+                  </strong>
+                  <br/>
+                  <span class="o_kanban_record_subtitle text-muted">
+                    <field name="room_type"/>
+                  </span>
+                </div>
+              </div>
+              <div class="o_kanban_record_body">
+                <field name="last_message_preview"/>
+              </div>
+              <div class="o_kanban_record_bottom">
+                <div class="oe_kanban_bottom_left">
+                  <span>👥 <field name="member_count"/> | 💬 <field name="message_count"/></span>
+                </div>
+                <div class="oe_kanban_bottom_right">
+                  <field name="last_message_date" widget="date"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+  <!-- ==================== SEARCH VIEW ==================== -->
+  <record id="view_chat_room_search" model="ir.ui.view">
+    <field name="name">chat.room.search</field>
+    <field name="model">chat.room</field>
+    <field name="arch" type="xml">
+      <search string="Tìm kiếm phòng chat">
+        <field name="name" string="Tên phòng"/>
+        <field name="project_id" string="Dự án"/>
+        <field name="member_ids" string="Thành viên"/>
+        <separator/>
+        <filter name="filter_my_rooms" string="💬 Phòng chat của tôi" 
+                domain="[('member_user_ids', 'in', uid)]"/>
+        <separator/>
+        <filter name="filter_project" string="📊 Chat dự án" domain="[('room_type', '=', 'project')]"/>
+        <filter name="filter_department" string="🏢 Chat phòng ban" domain="[('room_type', '=', 'department')]"/>
+        <filter name="filter_private" string="🔒 Chat riêng tư" domain="[('room_type', '=', 'private')]"/>
+        <separator/>
+        <filter name="filter_active" string="✅ Đang hoạt động" domain="[('is_archived', '=', False)]"/>
+        <filter name="filter_archived" string="🗄️ Đã lưu trữ" domain="[('is_archived', '=', True)]"/>
+        <group expand="0" string="Nhóm theo">
+          <filter name="group_room_type" string="Loại phòng" context="{'group_by': 'room_type'}"/>
+          <filter name="group_project" string="Dự án" context="{'group_by': 'project_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- ==================== ACTION ==================== -->
+  <record id="action_chat_room" model="ir.actions.act_window">
+    <field name="name">💬 Phòng chat</field>
+    <field name="res_model">chat.room</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="context">{'search_default_filter_my_rooms': 1, 'search_default_filter_active': 1}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Tạo phòng chat mới
+      </p>
+      <p>
+        Tạo phòng chat để giao tiếp với đồng nghiệp, nhóm dự án hoặc phòng ban.
+      </p>
+    </field>
+  </record>
+  </data>
+</odoo>

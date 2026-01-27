@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- 10 Nhân viên IT -->
+        
+        <record id="nv_it_01" model="nhan_vien">
+            <field name="ma_dinh_danh">NV001</field>
+            <field name="ho">Nguyễn Văn</field>
+            <field name="ten">An</field>
+            <field name="ngay_sinh">1995-03-15</field>
+            <field name="que_quan">Hà Nội</field>
+            <field name="email">an.nguyen@company.vn</field>
+            <field name="so_dien_thoai">0901234567</field>
+            <field name="dia_chi">123 Đường Láng, Đống Đa, Hà Nội</field>
+            <field name="luong" eval="25000000"/>
+            <field name="ngay_vao_lam">2020-01-15</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_02" model="nhan_vien">
+            <field name="ma_dinh_danh">NV002</field>
+            <field name="ho">Trần Thị</field>
+            <field name="ten">Bình</field>
+            <field name="ngay_sinh">1997-07-20</field>
+            <field name="que_quan">TP. Hồ Chí Minh</field>
+            <field name="email">binh.tran@company.vn</field>
+            <field name="so_dien_thoai">0901234568</field>
+            <field name="dia_chi">456 Nguyễn Văn Cừ, Quận 5, TP.HCM</field>
+            <field name="luong" eval="22000000"/>
+            <field name="ngay_vao_lam">2021-03-10</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_03" model="nhan_vien">
+            <field name="ma_dinh_danh">NV003</field>
+            <field name="ho">Lê Văn</field>
+            <field name="ten">Cường</field>
+            <field name="ngay_sinh">1993-11-05</field>
+            <field name="que_quan">Đà Nẵng</field>
+            <field name="email">cuong.le@company.vn</field>
+            <field name="so_dien_thoai">0901234569</field>
+            <field name="dia_chi">789 Trần Phú, Hải Châu, Đà Nẵng</field>
+            <field name="luong" eval="30000000"/>
+            <field name="ngay_vao_lam">2019-06-01</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_04" model="nhan_vien">
+            <field name="ma_dinh_danh">NV004</field>
+            <field name="ho">Phạm Thị</field>
+            <field name="ten">Dung</field>
+            <field name="ngay_sinh">1996-02-14</field>
+            <field name="que_quan">Hải Phòng</field>
+            <field name="email">dung.pham@company.vn</field>
+            <field name="so_dien_thoai">0901234570</field>
+            <field name="dia_chi">321 Điện Biên Phủ, Ngô Quyền, Hải Phòng</field>
+            <field name="luong" eval="28000000"/>
+            <field name="ngay_vao_lam">2020-05-20</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_05" model="nhan_vien">
+            <field name="ma_dinh_danh">NV005</field>
+            <field name="ho">Hoàng Văn</field>
+            <field name="ten">Em</field>
+            <field name="ngay_sinh">1998-09-25</field>
+            <field name="que_quan">Hà Nội</field>
+            <field name="email">em.hoang@company.vn</field>
+            <field name="so_dien_thoai">0901234571</field>
+            <field name="dia_chi">555 Giải Phóng, Hai Bà Trưng, Hà Nội</field>
+            <field name="luong" eval="18000000"/>
+            <field name="ngay_vao_lam">2022-01-10</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_06" model="nhan_vien">
+            <field name="ma_dinh_danh">NV006</field>
+            <field name="ho">Võ Thị</field>
+            <field name="ten">Phương</field>
+            <field name="ngay_sinh">1994-12-30</field>
+            <field name="que_quan">Cần Thơ</field>
+            <field name="email">phuong.vo@company.vn</field>
+            <field name="so_dien_thoai">0901234572</field>
+            <field name="dia_chi">888 Mậu Thân, Ninh Kiều, Cần Thơ</field>
+            <field name="luong" eval="20000000"/>
+            <field name="ngay_vao_lam">2021-08-15</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_07" model="nhan_vien">
+            <field name="ma_dinh_danh">NV007</field>
+            <field name="ho">Đặng Văn</field>
+            <field name="ten">Giang</field>
+            <field name="ngay_sinh">1992-04-18</field>
+            <field name="que_quan">Huế</field>
+            <field name="email">giang.dang@company.vn</field>
+            <field name="so_dien_thoai">0901234573</field>
+            <field name="dia_chi">999 Lê Duẩn, TP. Huế, Thừa Thiên Huế</field>
+            <field name="luong" eval="27000000"/>
+            <field name="ngay_vao_lam">2019-10-01</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_08" model="nhan_vien">
+            <field name="ma_dinh_danh">NV008</field>
+            <field name="ho">Mai Thị</field>
+            <field name="ten">Hoa</field>
+            <field name="ngay_sinh">1991-06-22</field>
+            <field name="que_quan">Hà Nội</field>
+            <field name="email">hoa.mai@company.vn</field>
+            <field name="so_dien_thoai">0901234574</field>
+            <field name="dia_chi">111 Nguyễn Trãi, Thanh Xuân, Hà Nội</field>
+            <field name="luong" eval="35000000"/>
+            <field name="ngay_vao_lam">2018-03-01</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_09" model="nhan_vien">
+            <field name="ma_dinh_danh">NV009</field>
+            <field name="ho">Bùi Văn</field>
+            <field name="ten">Inh</field>
+            <field name="ngay_sinh">1990-01-08</field>
+            <field name="que_quan">TP. Hồ Chí Minh</field>
+            <field name="email">inh.bui@company.vn</field>
+            <field name="so_dien_thoai">0901234575</field>
+            <field name="dia_chi">222 Lê Lợi, Quận 1, TP.HCM</field>
+            <field name="luong" eval="40000000"/>
+            <field name="ngay_vao_lam">2017-07-15</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        <record id="nv_it_10" model="nhan_vien">
+            <field name="ma_dinh_danh">NV010</field>
+            <field name="ho">Đinh Thị</field>
+            <field name="ten">Kim</field>
+            <field name="ngay_sinh">1995-08-12</field>
+            <field name="que_quan">Vũng Tàu</field>
+            <field name="email">kim.dinh@company.vn</field>
+            <field name="so_dien_thoai">0901234576</field>
+            <field name="dia_chi">333 Võ Thị Sáu, TP. Vũng Tàu, Bà Rịa - Vũng Tàu</field>
+            <field name="luong" eval="32000000"/>
+            <field name="ngay_vao_lam">2019-02-01</field>
+            <field name="trang_thai">active</field>
+        </record>
+        
+        
+        <!-- 10 Dự án IT -->
+        
+        <record id="da_it_01" model="du_an">
+            <field name="name">E-Commerce Platform</field>
+            <field name="mo_ta">Xây dựng hệ thống thương mại điện tử với ReactJS, Node.js, MongoDB</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=90)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_09"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_02" model="du_an">
+            <field name="name">Mobile App - Food Delivery</field>
+            <field name="mo_ta">Ứng dụng giao đồ ăn sử dụng React Native, Firebase</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=45)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=75)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_08"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_03" model="du_an">
+            <field name="name">ERP System - Odoo</field>
+            <field name="mo_ta">Tùy chỉnh Odoo ERP cho doanh nghiệp sản xuất</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=120)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_09"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_04" model="du_an">
+            <field name="name">AI Chatbot Integration</field>
+            <field name="mo_ta">Tích hợp chatbot AI sử dụng GPT-4, LangChain</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=20)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_09"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_05" model="du_an">
+            <field name="name">Microservices Migration</field>
+            <field name="mo_ta">Chuyển đổi từ Monolith sang Microservices với Docker, Kubernetes</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=90)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=150)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_04"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_06" model="du_an">
+            <field name="name">Cloud Infrastructure - AWS</field>
+            <field name="mo_ta">Triển khai hạ tầng cloud trên AWS với Terraform</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=15)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=45)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_04"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_07" model="du_an">
+            <field name="name">Data Analytics Dashboard</field>
+            <field name="mo_ta">Dashboard phân tích dữ liệu với Power BI, Python</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=25)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=55)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_07"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_08" model="du_an">
+            <field name="name">Blockchain Payment System</field>
+            <field name="mo_ta">Hệ thống thanh toán blockchain với Ethereum, Smart Contract</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=50)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=100)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_09"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_09" model="du_an">
+            <field name="name">IoT Smart Home Platform</field>
+            <field name="mo_ta">Nền tảng quản lý nhà thông minh IoT với MQTT, WebSocket</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=35)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=95)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_03"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        <record id="da_it_10" model="du_an">
+            <field name="name">Cybersecurity Audit Tool</field>
+            <field name="mo_ta">Công cụ kiểm tra bảo mật tự động với Python, Nmap, OWASP</field>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=10)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=70)).strftime('%Y-%m-%d')"/>
+            <field name="quan_ly_id" ref="nv_it_09"/>
+            <field name="trang_thai">in_progress</field>
+        </record>
+        
+        
+        <!-- 10 Công việc IT -->
+        
+        <record id="cv_it_01" model="cong_viec">
+            <field name="name">Thiết kế database schema cho module Order</field>
+            <field name="mo_ta">Tạo ERD, viết migration script, optimize indexes</field>
+            <field name="du_an_id" ref="da_it_01"/>
+            <field name="assigned_to_id" ref="nv_it_07"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=5)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">in_progress</field>
+            <field name="priority">high</field>
+        </record>
+        
+        <record id="cv_it_02" model="cong_viec">
+            <field name="name">Implement REST API cho Product Management</field>
+            <field name="mo_ta">API CRUD products, pagination, filtering, authentication JWT</field>
+            <field name="du_an_id" ref="da_it_01"/>
+            <field name="assigned_to_id" ref="nv_it_01"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=5)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">in_progress</field>
+            <field name="priority">high</field>
+        </record>
+        
+        <record id="cv_it_03" model="cong_viec">
+            <field name="name">Thiết kế UI/UX cho màn hình Shopping Cart</field>
+            <field name="mo_ta">Figma mockup, responsive design, accessibility check</field>
+            <field name="du_an_id" ref="da_it_01"/>
+            <field name="assigned_to_id" ref="nv_it_06"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=4)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">in_progress</field>
+            <field name="priority">medium</field>
+        </record>
+        
+        <record id="cv_it_04" model="cong_viec">
+            <field name="name">Setup CI/CD pipeline với Jenkins</field>
+            <field name="mo_ta">Automated build, test, deploy to staging environment</field>
+            <field name="du_an_id" ref="da_it_05"/>
+            <field name="assigned_to_id" ref="nv_it_04"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">review</field>
+            <field name="priority">critical</field>
+        </record>
+        
+        <record id="cv_it_05" model="cong_viec">
+            <field name="name">Write unit tests cho Payment module</field>
+            <field name="mo_ta">Jest tests, coverage 80 percent, mock external APIs</field>
+            <field name="du_an_id" ref="da_it_01"/>
+            <field name="assigned_to_id" ref="nv_it_05"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=6)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">todo</field>
+            <field name="priority">high</field>
+        </record>
+        
+        <record id="cv_it_06" model="cong_viec">
+            <field name="name">Optimize PostgreSQL queries cho dashboard</field>
+            <field name="mo_ta">Phân tích slow queries, thêm indexes, query rewrite</field>
+            <field name="du_an_id" ref="da_it_07"/>
+            <field name="assigned_to_id" ref="nv_it_07"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=4)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">in_progress</field>
+            <field name="priority">high</field>
+        </record>
+        
+        <record id="cv_it_07" model="cong_viec">
+            <field name="name">Integrate Firebase Push Notification</field>
+            <field name="mo_ta">FCM setup, handle notifications iOS/Android, deep linking</field>
+            <field name="du_an_id" ref="da_it_02"/>
+            <field name="assigned_to_id" ref="nv_it_03"/>
+            <field name="ngay_bat_dau" eval="DateTime.now().strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=7)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">todo</field>
+            <field name="priority">medium</field>
+        </record>
+        
+        <record id="cv_it_08" model="cong_viec">
+            <field name="name">Research và POC cho GPT-4 integration</field>
+            <field name="mo_ta">Test OpenAI API, cost analysis, performance benchmarks</field>
+            <field name="du_an_id" ref="da_it_04"/>
+            <field name="assigned_to_id" ref="nv_it_09"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=4)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">in_progress</field>
+            <field name="priority">high</field>
+        </record>
+        
+        <record id="cv_it_09" model="cong_viec">
+            <field name="name">Security audit cho authentication system</field>
+            <field name="mo_ta">Penetration testing, OWASP check, fix vulnerabilities</field>
+            <field name="du_an_id" ref="da_it_10"/>
+            <field name="assigned_to_id" ref="nv_it_09"/>
+            <field name="ngay_bat_dau" eval="DateTime.now().strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=10)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">todo</field>
+            <field name="priority">critical</field>
+        </record>
+        
+        <record id="cv_it_10" model="cong_viec">
+            <field name="name">Deploy Kubernetes cluster trên AWS EKS</field>
+            <field name="mo_ta">Setup EKS, ingress controller, monitoring với Prometheus</field>
+            <field name="du_an_id" ref="da_it_06"/>
+            <field name="assigned_to_id" ref="nv_it_04"/>
+            <field name="ngay_bat_dau" eval="(DateTime.now() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="ngay_ket_thuc" eval="(DateTime.now() + timedelta(days=8)).strftime('%Y-%m-%d')"/>
+            <field name="trang_thai">in_progress</field>
+            <field name="priority">critical</field>
+        </record>
+        
+    </data>
+</odoo>

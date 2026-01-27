@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <!-- ==================== FORM VIEW ==================== -->
+  <record id="view_thong_bao_form" model="ir.ui.view">
+    <field name="name">thong_bao.notification.form</field>
+    <field name="model">thong_bao.notification</field>
+    <field name="arch" type="xml">
+      <form string="Thông báo">
+        <header>
+          <button name="action_send" string="📤 Gửi thông báo" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+          <button name="mark_as_read" string="✅ Đánh dấu đã đọc" type="object" class="btn-primary" attrs="{'invisible': [('is_read', '=', True)]}"/>
+          <button name="mark_as_unread" string="📭 Đánh dấu chưa đọc" type="object" class="btn-secondary" attrs="{'invisible': [('is_read', '=', False)]}"/>
+          <button name="action_archive" string="🗄️ Lưu trữ" type="object" class="btn-secondary"/>
+          <button name="action_view_related" string="👁️ Xem chi tiết liên quan" type="object" class="btn-info" attrs="{'invisible': [('related_model', '=', False)]}"/>
+          <field name="state" widget="statusbar" statusbar_visible="draft,sent,read"/>
+        </header>
+        <sheet>
+          <!-- Stat Buttons -->
+          <div class="oe_button_box" name="button_box">
+            <button class="oe_stat_button" type="object" name="action_view_related" icon="fa-link" attrs="{'invisible': [('related_model', '=', False)]}">
+              <div class="o_field_widget o_stat_info">
+                <span class="o_stat_text">Liên kết</span>
+                <span class="o_stat_value">
+                  <field name="related_name"/>
+                </span>
+              </div>
+            </button>
+            <button class="oe_stat_button" icon="fa-users">
+              <div class="o_field_widget o_stat_info">
+                <span class="o_stat_value">
+                  <field name="total_recipients"/>
+                </span>
+                <span class="o_stat_text">Người nhận</span>
+              </div>
+            </button>
+            <button class="oe_stat_button" icon="fa-check-circle" attrs="{'invisible': [('total_read', '=', 0)]}">
+              <div class="o_field_widget o_stat_info">
+                <span class="o_stat_value">
+                  <field name="total_read"/>
+                </span>
+                <span class="o_stat_text">Đã đọc</span>
+              </div>
+            </button>
+            <button class="oe_stat_button" icon="fa-calendar-times-o" attrs="{'invisible': [('is_overdue', '=', False)]}">
+              <div class="o_field_widget o_stat_info">
+                <span class="o_stat_value text-danger">QUÁ HẠN</span>
+                <span class="o_stat_text">Thời hạn</span>
+              </div>
+            </button>
+          </div>
+          <!-- Title Section -->
+          <div class="oe_title">
+            <h1>
+              <field name="icon" invisible="1"/>
+              <field name="name" class="o_text_overflow" placeholder="Tiêu đề thông báo..."/>
+            </h1>
+            <h3>
+              <field name="short_description" class="text-muted"/>
+            </h3>
+          </div>
+          <!-- Progress Bar cho % đã đọc -->
+          <div class="row" attrs="{'invisible': [('state', '=', 'draft')]}">
+            <div class="col-12">
+              <label for="read_percentage" class="o_form_label">Tỉ lệ đã đọc</label>
+              <field name="read_percentage" widget="progressbar"/>
+            </div>
+          </div>
+          <group>
+            <group string="📋 Thông tin cơ bản">
+              <field name="notification_type"/>
+              <field name="priority"/>
+              <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+              <field name="deadline"/>
+              <field name="days_until_deadline" attrs="{'invisible': [('deadline', '=', False)]}"/>
+              <field name="is_overdue" invisible="1"/>
+              <field name="is_read" invisible="1"/>
+            </group>
+            <group string="👤 Người tạo và Trạng thái">
+              <field name="created_by_id" readonly="1"/>
+              <field name="create_date" readonly="1"/>
+              <field name="color" widget="color"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="📝 Nội dung" name="content">
+              <group>
+                <field name="message" widget="html" placeholder="Nhập nội dung thông báo..."/>
+              </group>
+            </page>
+            <page string="👥 Người nhận" name="recipients">
+              <group string="Chọn người nhận từ Quản lý Nhân sự">
+                <field name="employee_recipient_ids" widget="many2many_tags" 
+                       options="{'no_create': True}"
+                       placeholder="🔍 Chọn nhân viên từ danh sách Quản lý Nhân sú..."/>
+              </group>
+              <separator string="📊 Trạng thái đọc"/>
+              <group>
+                <field name="read_by_ids" widget="many2many_tags" readonly="1"/>
+              </group>
+              <field name="recipient_ids" invisible="1"/>
+            </page>
+            <page string="🔗 Liên kết" name="related" attrs="{'invisible': [('related_model', '=', False)]}">
+              <group>
+                <field name="related_model" readonly="1"/>
+                <field name="related_id" readonly="1"/>
+                <field name="related_name" readonly="1"/>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+        <!-- Chatter -->
+        <div class="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="activity_ids"/>
+          <field name="message_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <!-- ==================== TREE VIEW ==================== -->
+  <record id="view_thong_bao_tree" model="ir.ui.view">
+    <field name="name">thong_bao.notification.tree</field>
+    <field name="model">thong_bao.notification</field>
+    <field name="arch" type="xml">
+      <tree string="Danh sách thông báo" decoration-muted="state == 'archived'" decoration-bf="is_overdue == True and state != 'read'" decoration-success="state == 'read'" decoration-danger="is_overdue == True">
+        <field name="name" string="Tiêu đề"/>
+        <field name="short_description" string="Nội dung" optional="show"/>
+        <field name="notification_type"/>
+        <field name="priority"/>
+        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="show"/>
+        <field name="total_recipients" string="Người nhận" optional="show"/>
+        <field name="total_read" string="Đã đọc" optional="show"/>
+        <field name="read_percentage" string="% Đã đọc" widget="progressbar" optional="show"/>
+        <field name="deadline" optional="show"/>
+        <field name="days_until_deadline" string="Còn lại" optional="hide"/>
+        <field name="state"/>
+        <field name="created_by_id" string="Người tạo" optional="hide"/>
+        <field name="create_date" string="Ngày tạo" optional="show"/>
+        <field name="is_read" invisible="1"/>
+        <field name="is_overdue" invisible="1"/>
+      </tree>
+    </field>
+  </record>
+  <!-- ==================== KANBAN VIEW ==================== -->
+  <record id="view_thong_bao_kanban" model="ir.ui.view">
+    <field name="name">thong_bao.notification.kanban</field>
+    <field name="model">thong_bao.notification</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="state" class="o_kanban_small_column">
+        <field name="name"/>
+        <field name="notification_type"/>
+        <field name="priority"/>
+        <field name="state"/>
+        <field name="is_read"/>
+        <field name="is_overdue"/>
+        <field name="total_recipients"/>
+        <field name="total_read"/>
+        <field name="read_percentage"/>
+        <field name="deadline"/>
+        <field name="tag_ids"/>
+        <field name="color"/>
+        <field name="short_description"/>
+        <templates>
+          <t t-name="kanban-box">
+            <div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}} oe_kanban_card oe_kanban_global_click">
+              <div class="o_kanban_card_header">
+                <div class="o_kanban_card_header_title">
+                  <div class="o_primary">
+                    <strong>
+                      <field name="name"/>
+                    </strong>
+                  </div>
+                  <div class="o_secondary">
+                    <field name="short_description"/>
+                  </div>
+                </div>
+              </div>
+              <div class="o_kanban_card_content">
+                <div class="o_kanban_record_body">
+                  <div class="mb-1">
+                    <t t-if="record.priority.raw_value == 'critical'">
+                      <span class="badge badge-danger">🔴 Rất cao</span>
+                    </t>
+                    <t t-if="record.priority.raw_value == 'high'">
+                      <span class="badge badge-warning">🟠 Cao</span>
+                    </t>
+                    <t t-if="record.priority.raw_value == 'normal'">
+                      <span class="badge badge-info">🟡 Bình thường</span>
+                    </t>
+                    <t t-if="record.priority.raw_value == 'low'">
+                      <span class="badge badge-secondary">🔵 Thấp</span>
+                    </t>
+                  </div>
+                  <div class="mt-2">
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                  </div>
+                  <div class="mt-2" t-if="record.state.raw_value != 'draft'">
+                    <div class="progress" style="height: 20px;">
+                      <div class="progress-bar bg-success" role="progressbar" t-att-style="'width: ' + record.read_percentage.value + '%'"><t t-esc="Math.round(record.read_percentage.value)"/>%
+                                            </div>
+                    </div>
+                  </div>
+                  <div class="mt-2"><i class="fa fa-users"/><t t-esc="record.total_read.value"/>/<t t-esc="record.total_recipients.value"/> đã đọc
+                                    </div>
+                  <div class="mt-2" t-if="record.is_overdue.raw_value">
+                    <span class="badge badge-danger"><i class="fa fa-exclamation-triangle"/> Quá hạn
+                                        </span>
+                  </div>
+                </div>
+              </div>
+              <div class="o_kanban_card_footer">
+                <div class="o_kanban_record_bottom">
+                  <div class="oe_kanban_bottom_left">
+                    <field name="created_by_id" widget="many2one_avatar_user"/>
+                  </div>
+                  <div class="oe_kanban_bottom_right">
+                    <t t-if="record.is_read.raw_value">
+                      <span class="badge badge-success"><i class="fa fa-check"/> Đã đọc
+                                            </span>
+                    </t>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <!-- ==================== CALENDAR VIEW ==================== -->
+  <record id="view_thong_bao_calendar" model="ir.ui.view">
+    <field name="name">thong_bao.notification.calendar</field>
+    <field name="model">thong_bao.notification</field>
+    <field name="arch" type="xml">
+      <calendar string="Lịch thông báo" date_start="create_date" date_stop="deadline" color="priority" mode="month" quick_add="False" event_open_popup="True">
+        <field name="name"/>
+        <field name="notification_type"/>
+        <field name="state"/>
+      </calendar>
+    </field>
+  </record>
+  <!-- ==================== SEARCH VIEW ==================== -->
+  <record id="view_thong_bao_search" model="ir.ui.view">
+    <field name="name">thong_bao.notification.search</field>
+    <field name="model">thong_bao.notification</field>
+    <field name="arch" type="xml">
+      <search string="Tìm kiếm thông báo">
+        <field name="name" string="Tiêu đề"/>
+        <field name="message" string="Nội dung"/>
+        <field name="created_by_id" string="Người tạo"/>
+        <field name="tag_ids" string="Tags"/>
+        <separator/>
+        <filter name="filter_my_notifications" string="📬 Thông báo của tôi" domain="[('recipient_ids', 'in', uid)]"/>
+        <filter name="filter_unread" string="📭 Chưa đọc" domain="[('read_by_ids', 'not in', uid), ('recipient_ids', 'in', uid)]"/>
+        <filter name="filter_read" string="✅ Đã đọc" domain="[('read_by_ids', 'in', uid)]"/>
+        <separator/>
+        <filter name="filter_urgent" string="🚨 Khẩn cấp" domain="[('notification_type', '=', 'urgent')]"/>
+        <filter name="filter_error" string="❌ Lỗi" domain="[('notification_type', '=', 'error')]"/>
+        <filter name="filter_warning" string="⚠️ Cảnh báo" domain="[('notification_type', '=', 'warning')]"/>
+        <filter name="filter_success" string="✅ Thành công" domain="[('notification_type', '=', 'success')]"/>
+        <filter name="filter_info" string="📋 Thông tin" domain="[('notification_type', '=', 'info')]"/>
+        <separator/>
+        <filter name="filter_critical" string="🔴 Rất cao" domain="[('priority', '=', 'critical')]"/>
+        <filter name="filter_high" string="🟠 Cao" domain="[('priority', '=', 'high')]"/>
+        <filter name="filter_normal" string="🟡 Bình thường" domain="[('priority', '=', 'normal')]"/>
+        <filter name="filter_low" string="🔵 Thấp" domain="[('priority', '=', 'low')]"/>
+        <separator/>
+        <filter name="filter_has_deadline" string="📅 Có thời hạn" domain="[('deadline', '!=', False)]"/>
+        <separator/>
+        <group expand="0" string="Nhóm theo">
+          <filter name="group_type" string="Loại thông báo" context="{'group_by': 'notification_type'}"/>
+          <filter name="group_priority" string="Ưu tiên" context="{'group_by': 'priority'}"/>
+          <filter name="group_state" string="Trạng thái" context="{'group_by': 'state'}"/>
+          <filter name="group_created_by" string="Người tạo" context="{'group_by': 'created_by_id'}"/>
+          <filter name="group_tag" string="Tags" context="{'group_by': 'tag_ids'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+  <!-- ==================== ACTIONS ==================== -->
+  <record id="action_thong_bao_notification" model="ir.actions.act_window">
+    <field name="name">📬 Thông báo</field>
+    <field name="res_model">thong_bao.notification</field>
+    <field name="view_mode">tree,kanban,form,calendar</field>
+    <field name="context">{
+            'search_default_filter_my_notifications': 1,
+            'search_default_filter_unread': 1,
+        }</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+                📬 Chưa có thông báo nào
+            </p>
+      <p>
+                Nhấn <b>Tạo mới</b> để tạo thông báo đầu tiên!
+            </p>
+    </field>
+  </record>
+  <!-- Action for Tags -->
+  <record id="action_thong_bao_tag" model="ir.actions.act_window">
+    <field name="name">🏷️ Tags thông báo</field>
+    <field name="res_model">thong_bao.tag</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <!-- Tag Form View -->
+  <record id="view_thong_bao_tag_form" model="ir.ui.view">
+    <field name="name">thong_bao.tag.form</field>
+    <field name="model">thong_bao.tag</field>
+    <field name="arch" type="xml">
+      <form string="Tag">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="color" widget="color"/>
+            <field name="notification_count"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <!-- Tag Tree View -->
+  <record id="view_thong_bao_tag_tree" model="ir.ui.view">
+    <field name="name">thong_bao.tag.tree</field>
+    <field name="model">thong_bao.tag</field>
+    <field name="arch" type="xml">
+      <tree string="Tags">
+        <field name="name"/>
+        <field name="notification_count"/>
+      </tree>
+    </field>
+  </record>
+  </data>
+</odoo>

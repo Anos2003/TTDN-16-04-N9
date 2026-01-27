@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <menuitem id="menu_root" name="QLNS" sequence="0"/>
+  <menuitem id="menu_nhan_vien" name="Quản lý nhân viên" parent="menu_root" sequence="1" action="action_nhan_vien"/>
+  <menuitem id="menu_phong_ban" name="Phòng ban" parent="menu_root" sequence="2" action="action_phong_ban"/>
+  <menuitem id="menu_chuc_vu" name="Chức vụ" parent="menu_root" sequence="3" action="action_chuc_vu"/>
+  </data>
+</odoo>

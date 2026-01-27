@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+    <!-- Hướng dẫn sử dụng AI trong Chat Window -->
+    <record id="action_ai_chat_guide" model="ir.actions.act_window">
+        <field name="name">🤖 Hướng dẫn AI Chat</field>
+        <field name="res_model">chat.room</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face" style="font-size: 48px;">
+                🤖
+            </p>
+            <h2>Cách sử dụng AI Chat Assistant</h2>
+            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <h3>📍 Bước 1: Mở Chat Window</h3>
+                <p>Vào menu: <strong>Chat Nội Bộ → Chat</strong> (không phải AI Chat)</p>
+                
+                <h3>💬 Bước 2: Chọn phòng chat</h3>
+                <p>Chọn bất kỳ phòng chat nào trong danh sách</p>
+                
+                <h3>🤖 Bước 3: Chat với AI</h3>
+                <p>Trong cửa sổ chat, gõ tin nhắn bắt đầu bằng <strong>@ai</strong>:</p>
+                <ul style="font-family: monospace; background: #f0f0f0; padding: 15px; border-radius: 5px;">
+                    <li>@ai có bao nhiêu task?</li>
+                    <li>@ai tóm tắt chat hôm nay</li>
+                    <li>@ai tạo task kiểm tra hệ thống</li>
+                    <li>@ai task nào sắp deadline?</li>
+                    <li>@ai nên làm gì tiếp theo?</li>
+                </ul>
+                
+                <h3>⚡ Tính năng AI:</h3>
+                <ul>
+                    <li>❓ <strong>Hỏi đáp</strong>: Trả lời câu hỏi về task, deadline, dự án</li>
+                    <li>📝 <strong>Tóm tắt</strong>: Tóm tắt cuộc trò chuyện theo thời gian</li>
+                    <li>➕ <strong>Tạo task</strong>: Tự động tạo task từ chat</li>
+                    <li>⚠️ <strong>Cảnh báo</strong>: Nhắc nhở task trễ và sắp deadline</li>
+                    <li>💡 <strong>Gợi ý</strong>: Gợi ý task nên làm tiếp theo</li>
+                </ul>
+                
+                <p style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 5px;">
+                    <strong>💡 Mẹo:</strong> AI chỉ phản hồi khi tin nhắn bắt đầu bằng <code>@ai</code>. 
+                    Tin nhắn thường (không có @ai) sẽ là chat bình thường.
+                </p>
+            </div>
+        </field>
+    </record>
+    
+    <!-- Menu hướng dẫn -->
+    <menuitem id="menu_ai_chat_guide"
+              name="🤖 AI Chat (Hướng dẫn)"
+              parent="chat_noi_bo.menu_chat_root"
+              action="action_ai_chat_guide"
+              sequence="50"/>
+    
+    </data>
+</odoo>

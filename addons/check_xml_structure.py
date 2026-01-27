@@ -1,0 +1,176 @@
+#!/usr/bin/env python3
+"""
+Script kiểm tra cấu trúc XML của Odoo
+Tìm các file có menuitem, record, template nằm ngoài thẻ <data>
+"""
+
+import os
+import re
+from pathlib import Path
+import xml.etree.ElementTree as ET
+
+def check_xml_structure(file_path):
+    """Kiểm tra cấu trúc XML file"""
+    errors = []
+    warnings = []
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Parse XML
+        try:
+            tree = ET.parse(file_path)
+            root = tree.getroot()
+        except ET.ParseError as e:
+            errors.append(f"XML Parse Error: {e}")
+            return errors, warnings
+        
+        # Kiểm tra root element
+        if root.tag not in ['odoo', 'openerp']:
+            errors.append(f"Root element phải là <odoo> hoặc <openerp>, nhưng là <{root.tag}>")
+            return errors, warnings
+        
+        # Kiểm tra các phần tử con trực tiếp của root
+        invalid_direct_children = []
+        valid_children = ['data', 'template']  # template có thể nằm trực tiếp trong odoo
+        
+        for child in root:
+            # Bỏ qua comment
+            if isinstance(child.tag, str):
+                if child.tag not in valid_children:
+                    # Các thẻ này PHẢI nằm trong <data>
+                    if child.tag in ['record', 'menuitem', 'delete', 'function', 'report']:
+                        invalid_direct_children.append({
+                            'tag': child.tag,
+                            'id': child.get('id', 'NO_ID'),
+                            'line': content[:content.find(f'<{child.tag}')].count('\n') + 1
+                        })
+        
+        if invalid_direct_children:
+            for item in invalid_direct_children:
+                errors.append(
+                    f"Line ~{item['line']}: <{item['tag']}> (id={item['id']}) "
+                    f"nằm ngoài thẻ <data>. Phải đưa vào trong <data>...</data>"
+                )
+        
+        # Kiểm tra có <data> tag không
+        has_data_tag = any(child.tag == 'data' for child in root)
+        if not has_data_tag and len(list(root)) > 0:
+            # Có content nhưng không có <data> tag
+            first_child = list(root)[0]
+            if isinstance(first_child.tag, str) and first_child.tag != 'template':
+                warnings.append("File không có thẻ <data>, nên wrap content trong <data>")
+        
+        # Kiểm tra menuitem có action/parent
+        for data_elem in root.findall('.//data'):
+            for menuitem in data_elem.findall('.//menuitem'):
+                menu_id = menuitem.get('id', 'NO_ID')
+                has_action = menuitem.get('action') is not None
+                has_parent = menuitem.get('parent') is not None
+                
+                # Menu con phải có action hoặc parent
+                if not has_action and not has_parent:
+                    line = content[:content.find(f'id="{menu_id}"')].count('\n') + 1 if menu_id != 'NO_ID' else '?'
+                    warnings.append(
+                        f"Line ~{line}: <menuitem id=\"{menu_id}\"> không có 'action' hoặc 'parent'. "
+                        f"Menu root cần có submenu, menu con cần có action"
+                    )
+    
+    except Exception as e:
+        errors.append(f"Error reading file: {e}")
+    
+    return errors, warnings
+
+
+def scan_xml_files(base_path):
+    """Scan tất cả file XML trong workspace"""
+    results = {}
+    xml_files = list(Path(base_path).rglob('*.xml'))
+    
+    # Loại bỏ các file trong static/src/xml (đây là QWeb template cho frontend)
+    xml_files = [f for f in xml_files if 'static/src/xml' not in str(f)]
+    
+    print(f"\n🔍 Đang kiểm tra {len(xml_files)} file XML...")
+    print("=" * 80)
+    
+    error_count = 0
+    warning_count = 0
+    
+    for xml_file in xml_files:
+        errors, warnings = check_xml_structure(xml_file)
+        
+        if errors or warnings:
+            rel_path = xml_file.relative_to(base_path)
+            results[str(rel_path)] = {
+                'errors': errors,
+                'warnings': warnings,
+                'full_path': str(xml_file)
+            }
+            
+            if errors:
+                error_count += 1
+                print(f"\n❌ {rel_path}")
+                for error in errors:
+                    print(f"   ERROR: {error}")
+            
+            if warnings:
+                warning_count += 1
+                if not errors:  # Chỉ print nếu chưa print ở trên
+                    print(f"\n⚠️  {rel_path}")
+                for warning in warnings:
+                    print(f"   WARNING: {warning}")
+    
+    print("\n" + "=" * 80)
+    print(f"📊 Kết quả: {error_count} file có LỖI, {warning_count} file có CẢNH BÁO")
+    
+    return results
+
+
+def generate_fix_script(results):
+    """Tạo script để sửa các lỗi"""
+    if not results:
+        return
+    
+    print("\n\n🔧 Tạo script sửa lỗi...")
+    
+    fix_script = """#!/bin/bash
+# Script tự động sửa lỗi XML structure
+# Generated by check_xml_structure.py
+
+"""
+    
+    for file_path, data in results.items():
+        if data['errors']:
+            full_path = data['full_path']
+            fix_script += f"\n# Fix: {file_path}\n"
+            fix_script += f"echo 'Đang sửa {file_path}...'\n"
+            
+            # Đề xuất cách sửa
+            for error in data['errors']:
+                if 'nằm ngoài thẻ <data>' in error:
+                    fix_script += f"# TODO: Mở file và đưa các thẻ vào trong <data>\n"
+                    fix_script += f"# vim '{full_path}'\n"
+    
+    with open('/mnt/extra-addons/fix_xml_structure.sh', 'w') as f:
+        f.write(fix_script)
+    
+    os.chmod('/mnt/extra-addons/fix_xml_structure.sh', 0o755)
+    print("✅ Đã tạo file: /mnt/extra-addons/fix_xml_structure.sh")
+
+
+if __name__ == '__main__':
+    base_path = Path('/mnt/extra-addons')
+    results = scan_xml_files(base_path)
+    
+    if results:
+        generate_fix_script(results)
+        
+        # In ra danh sách file cần sửa
+        print("\n\n📝 DANH SÁCH FILE CẦN SỬA:")
+        print("=" * 80)
+        for file_path, data in results.items():
+            if data['errors']:
+                print(f"  - {file_path}")
+    else:
+        print("\n✅ Tất cả file XML đều có cấu trúc đúng!")

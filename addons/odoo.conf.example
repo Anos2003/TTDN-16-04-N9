@@ -1,0 +1,40 @@
+[options]
+# Database settings
+db_host = db
+db_port = 5432
+db_user = odoo
+db_password = odoo
+db_name = danganh1009
+
+# Connection pool settings - FIX connection already closed
+db_maxconn = 64
+db_maxconn_gevent = 8
+
+# Server settings
+addons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+admin_passwd = $pbkdf2-sha512$25000$...  # Change this!
+
+# Multi-processing
+workers = 2
+max_cron_threads = 2
+
+# Timeout settings - Tránh lỗi connection timeout
+limit_time_cpu = 600
+limit_time_real = 1200
+limit_time_real_cron = 1800
+
+# Memory limits
+limit_memory_soft = 2147483648
+limit_memory_hard = 2684354560
+
+# Log settings
+log_level = info
+log_handler = :INFO
+logfile = /var/log/odoo/odoo.log
+
+# Security
+list_db = False
+proxy_mode = True
+
+# Performance
+server_wide_modules = base,web

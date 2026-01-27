@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data>
+  <menuitem id="menu_du_an_root" name="Quản lý dự án" sequence="10"/>
+  <menuitem id="menu_du_an" name="Dự án" parent="menu_du_an_root" sequence="1" action="action_du_an"/>
+  </data>
+</odoo>
