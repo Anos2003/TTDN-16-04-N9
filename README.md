@@ -1,72 +1,645 @@
 ---
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Odoo](https://img.shields.io/badge/Odoo-714B67?style=for-the-badge&logo=odoo&logoColor=white)
 
-![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
+![Python](https://img.shields.io/badge/python-v3.10+-blue.svg)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+![License](https://img.shields.io/badge/license-LGPL--3-green.svg)
 
+# 🎯 Hệ Thống Quản Lý Doanh Nghiệp - Odoo FITDNU
 
+Hệ thống ERP tích hợp đầy đủ được xây dựng trên nền tảng Odoo 16, bao gồm các module tùy chỉnh cho quản lý nhân sự, dự án, công việc và thông báo nội bộ.
 
+## 📋 Mục lục
 
-# 1. Cài đặt công cụ, môi trường và các thư viện cần thiết
+- [Tính năng chính](#-tính-năng-chính)
+- [Các Module Tùy Chỉnh](#-các-module-tùy-chỉnh)
+- [Yêu cầu hệ thống](#-yêu-cầu-hệ-thống)
+- [Cài đặt](#-cài-đặt)
+- [Cấu hình](#-cấu-hình)
+- [Demo & Hướng dẫn sử dụng](#-demo--hướng-dẫn-sử-dụng)
+- [Cấu trúc dự án](#-cấu-trúc-dự-án)
 
-## 1.1. Clone project.
-git clone https://gitlab.com/anhlta/odoo-fitdnu.git
-git checkout 
+## ✨ Tính năng chính
 
-## 1.2. cài đặt các thư viện cần thiết
+### 🏢 Quản lý Doanh nghiệp Toàn diện
+- 👥 **Quản lý Nhân sự**: Hồ sơ nhân viên, phòng ban, chức vụ
+- 📊 **Quản lý Dự án**: Theo dõi dự án, milestone, tiến độ
+- ✅ **Quản lý Công việc**: Task management, phân công, deadline
+- 📬 **Thông báo Thông minh**: Hệ thống thông báo đa cấp, realtime
+- 💬 **Chat Nội bộ**: Giao tiếp team, phòng chat theo dự án
 
-Người sử dụng thực thi các lệnh sau đề cài đặt các thư viện cần thiết
+### 🚀 Tích hợp Odoo Core
+- 📦 **Kho & Bán hàng**: Inventory, Sales, Purchase
+- 💰 **Kế toán**: Accounting, Invoicing
+- 🏭 **Sản xuất**: Manufacturing, MRP
+- 🌐 **Website & E-commerce**: Website builder, Online store
+- 📧 **Marketing**: Email marketing, Social media
 
+## 🎨 Các Module Tùy Chỉnh
+
+### 1️⃣ Quản lý Nhân sự (`nhan_su`)
+**Mô tả**: Module quản lý toàn diện về nhân viên và tổ chức
+
+**Tính năng**:
+- 👤 Quản lý hồ sơ nhân viên (họ tên, email, điện thoại, địa chỉ)
+- 🏢 Quản lý phòng ban và cơ cấu tổ chức
+- 💼 Quản lý chức vụ và cấp bậc
+- 📊 Dashboard tổng quan nhân sự
+- 🔍 Tìm kiếm và lọc nhân viên nâng cao
+
+**Đối tượng sử dụng**: HR Manager, Admin
+
+---
+
+### 2️⃣ Quản lý Dự án (`quan_ly_du_an`)
+**Mô tả**: Hệ thống quản lý dự án chuyên nghiệp với workflow rõ ràng
+
+**Tính năng**:
+- 📊 Tạo và quản lý dự án
+- 👥 Phân công nhân viên vào dự án
+- 📅 Theo dõi tiến độ và deadline
+- 🎯 Quản lý milestone và deliverables
+- 💬 Chatter và thảo luận nhóm
+- 📈 Báo cáo tiến độ dự án
+
+**Đối tượng sử dụng**: Project Manager, Team Lead
+
+---
+
+### 3️⃣ Quản lý Công việc (`quan_ly_cong_viec`)
+**Mô tả**: Task management linh hoạt, tích hợp với dự án và nhân sự
+
+**Tính năng**:
+- ✅ Tạo và phân công công việc
+- 🎯 Gắn công việc với dự án cụ thể
+- ⏰ Quản lý deadline và reminder
+- 📊 Theo dõi trạng thái (Mới, Đang làm, Hoàn thành, Hủy)
+- 🔔 Thông báo tự động cho người được phân công
+- 📝 Ghi chú và comment trên công việc
+- 📎 Đính kèm file và tài liệu
+
+**Đối tượng sử dụng**: Tất cả nhân viên, Manager
+
+---
+
+### 4️⃣ Hệ thống Thông báo (`thong_bao`)
+**Mô tả**: Hệ thống thông báo thông minh với UI hiện đại
+
+**Tính năng**:
+- 🔔 **5 loại thông báo**:
+  - 📘 Thông tin (Info)
+  - ⚠️ Cảnh báo (Warning)
+  - ✅ Thành công (Success)
+  - ❌ Lỗi (Error)
+  - 🚨 Khẩn cấp (Urgent)
+
+- 🎯 **4 mức độ ưu tiên**: Thấp, Trung bình, Cao, Khẩn cấp
+- 🏷️ **Tags** để phân loại thông báo
+- 👥 **Gửi đến nhiều người** cùng lúc
+- ⏰ **Quản lý thời hạn** và cảnh báo quá hạn
+- 📊 **Dashboard thống kê**: Tỉ lệ đã đọc, phân bố theo loại
+- 🔗 **Liên kết** với Nhân sự, Dự án, Công việc
+- 💬 **Chatter** để thảo luận
+- 📧 **Gửi email** tự động
+- 🎨 **Multiple views**: Kanban, Calendar, List, Form
+
+**Đối tượng sử dụng**: Admin, Manager, tất cả nhân viên
+
+---
+
+### 5️⃣ Chat Nội bộ (`chat_noi_bo`)
+**Mô tả**: Hệ thống chat realtime cho team và dự án
+
+**Tính năng**:
+- 💬 Tạo phòng chat cho nhóm, dự án, bộ phận
+- 👥 Thêm/xóa thành viên từ danh sách nhân viên
+- 📊 Mỗi dự án có phòng chat riêng
+- 📝 Gửi tin nhắn text và file đính kèm
+- ✅ Trạng thái đọc/chưa đọc
+- 🔔 Thông báo tin nhắn mới realtime
+- 🔍 Tìm kiếm tin nhắn và lịch sử
+- 📎 Quản lý file đính kèm
+
+**Đối tượng sử dụng**: Tất cả nhân viên
+
+## 💻 Yêu cầu hệ thống
+
+### Phần cứng tối thiểu
+- **RAM**: 4GB (khuyến nghị 8GB+)
+- **CPU**: 2 cores (khuyến nghị 4+ cores)
+- **Disk**: 20GB trống (khuyến nghị SSD)
+
+### Phần mềm
+- **OS**: Ubuntu 20.04+ / Debian 11+ / Windows 10+ (với WSL2)
+- **Python**: 3.10+
+- **PostgreSQL**: 12+
+- **Docker & Docker Compose**: Latest version
+- **Git**: Latest version
+
+---
+
+# 🚀 Cài đặt
+
+## 1. Clone project
+
+```bash
+git clone https://github.com/danganh1009/TTDN-16-04-N9.git
+cd TTDN-16-04-N9
 ```
-sudo apt-get install libxml2-dev libxslt-dev libldap2-dev libsasl2-dev libssl-dev python3.10-distutils python3.10-dev build-essential libssl-dev libffi-dev zlib1g-dev python3.10-venv libpq-dev
+
+## 2. Cài đặt dependencies hệ thống (Ubuntu/Debian)
+
+```bash
+sudo apt-get update
+sudo apt-get install -y \
+    libxml2-dev \
+    libxslt-dev \
+    libldap2-dev \
+    libsasl2-dev \
+    libssl-dev \
+    python3.10-distutils \
+    python3.10-dev \
+    build-essential \
+    libffi-dev \
+    zlib1g-dev \
+    python3.10-venv \
+    libpq-dev \
+    git \
+    wget
 ```
-## 1.3. khởi tạo môi trường ảo.
 
-`python3.10 -m venv ./venv`
-Thay đổi trình thông dịch sang môi trường ảo và chạy requirements.txt để cài đặt tiếp các thư viện được yêu cầu
+## 3. Tạo môi trường ảo Python
 
+```bash
+# Tạo virtual environment
+python3.10 -m venv ./venv
+
+# Kích hoạt virtual environment
+source venv/bin/activate  # Linux/Mac
+# Hoặc
+.\venv\Scripts\activate   # Windows
 ```
-source venv/bin/activate
-pip3 install -r requirements.txt
+
+## 4. Cài đặt Python packages
+
+```bash
+pip install --upgrade pip
+pip install wheel
+pip install -r requirements.txt
 ```
 
-# 2. Setup database
+## 5. Setup PostgreSQL Database với Docker
 
-Khởi tạo database trên docker bằng việc thực thi file dockercompose.yml.
+```bash
+# Khởi động PostgreSQL container
+docker-compose up -d
 
-`docker-compose up -d`
+# Kiểm tra container đang chạy
+docker ps
 
-# 3. Setup tham số chạy cho hệ thống
-
-## 3.1. Khởi tạo odoo.conf
-
-Tạo tệp **odoo.conf** có nội dung như sau:
-
+# Kiểm tra logs (nếu cần)
+docker-compose logs -f
 ```
+
+**Thông tin database mặc định**:
+- Host: `localhost`
+- Port: `5432`
+- Database: `odoo`
+- User: `odoo`
+- Password: `odoo`
+
+---
+
+# ⚙️ Cấu hình
+
+## 1. Tạo file cấu hình Odoo
+
+Tạo file `odoo.conf` từ template:
+
+```bash
+cp odoo.conf.template odoo.conf
+```
+
+Hoặc tạo file `odoo.conf` với nội dung:
+
+```ini
 [options]
+# Đường dẫn addons
 addons_path = addons
+
+# Cấu hình database
 db_host = localhost
-db_password = odoo
-db_user = odoo
 db_port = 5432
+db_user = odoo
+db_password = odoo
+db_name = False  # False để cho phép chọn DB khi login
+
+# Cấu hình server
 xmlrpc_port = 8069
-```
-Có thể kế thừa từ **odoo.conf.template**
+longpolling_port = 8072
 
-Ngoài ra có thể thêm mổ số parameters như:
+# Log
+logfile = /var/log/odoo/odoo.log
+log_level = info
 
-```
--c _<đường dẫn đến tệp odoo.conf>_
--u _<tên addons>_ giúp cập nhật addons đó trước khi khởi chạy
--d _<tên database>_ giúp chỉ rõ tên database được sử dụng
---dev=all giúp bật chế độ nhà phát triển 
+# Development mode (bỏ comment dòng dưới khi dev)
+# dev_mode = reload,qweb,werkzeug,xml
 ```
 
-# 4. Chạy hệ thống và cài đặt các ứng dụng cần thiết
+## 2. Tạo thư mục log (optional)
 
-Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ để đăng nhập vào hệ thống.
+```bash
+sudo mkdir -p /var/log/odoo
+sudo chown -R $USER:$USER /var/log/odoo
+```
 
-Hoàn tất
+## 3. Khởi chạy Odoo
+
+### Chế độ development
+
+```bash
+# Chạy với auto-reload khi code thay đổi
+python odoo-bin -c odoo.conf --dev=all -d odoo_dev -u all
+
+# Hoặc chỉ update module cụ thể
+python odoo-bin -c odoo.conf --dev=all -d odoo_dev -u nhan_su,thong_bao,chat_noi_bo
+```
+
+### Chế độ production
+
+```bash
+python odoo-bin -c odoo.conf
+```
+
+### Các tham số hữu ích
+
+```bash
+# Khởi tạo database mới và cài đặt module
+python odoo-bin -c odoo.conf -d <tên_database> -i <tên_module>
+
+# Update module
+python odoo-bin -c odoo.conf -d <tên_database> -u <tên_module>
+
+# Chạy với development mode
+python odoo-bin -c odoo.conf --dev=all
+
+# Chỉ định database
+python odoo-bin -c odoo.conf -d odoo_prod
+
+# Không load demo data
+python odoo-bin -c odoo.conf --without-demo=all
+```
+
+## 4. Truy cập hệ thống
+
+Mở trình duyệt và truy cập:
+- **URL**: http://localhost:8069
+- **Email**: admin
+- **Password**: admin
+
+---
+
+# 📖 Demo & Hướng dẫn sử dụng
+
+## 🎬 Khởi tạo Database và Module
+
+### Bước 1: Tạo Database mới
+
+1. Truy cập http://localhost:8069
+2. Click **"Create Database"**
+3. Điền thông tin:
+   - **Database Name**: `odoo_demo`
+   - **Email**: `admin@example.com`
+   - **Password**: `admin`
+   - **Language**: `Vietnamese (VN)`
+   - **Load demonstration data**: ✅ (Tích chọn để có dữ liệu demo)
+4. Click **"Create Database"**
+
+### Bước 2: Cài đặt Module Custom
+
+1. Sau khi tạo database, login vào hệ thống
+2. Vào **Apps** (Ứng dụng)
+3. Remove filter **"Apps"** để hiện tất cả module
+4. Tìm và cài đặt các module theo thứ tự:
+
+**Thứ tự cài đặt (quan trọng)**:
+```
+1. nhan_su (Quản lý Nhân sự) - Module cơ sở
+   ↓
+2. quan_ly_du_an (Quản lý Dự án) - Phụ thuộc nhan_su
+   ↓
+3. quan_ly_cong_viec (Quản lý Công việc) - Phụ thuộc nhan_su, quan_ly_du_an
+   ↓
+4. thong_bao (Thông báo) - Phụ thuộc nhan_su, quan_ly_du_an, quan_ly_cong_viec
+   ↓
+5. chat_noi_bo (Chat nội bộ) - Phụ thuộc nhan_su, quan_ly_du_an
+```
+
+---
+
+## 👥 Demo Module Quản lý Nhân sự
+
+### Tạo Nhân viên mới
+
+1. Vào **Nhân sự** → **Nhân viên** → **Create**
+2. Điền thông tin:
+   ```
+   Họ tên: Nguyễn Văn A
+   Email: nguyenvana@company.com
+   Điện thoại: 0912345678
+   Phòng ban: IT
+   Chức vụ: Developer
+   Địa chỉ: Hà Nội
+   ```
+3. Click **Save**
+
+### Quản lý Phòng ban
+
+1. Vào **Nhân sự** → **Phòng ban** → **Create**
+2. Tạo các phòng ban:
+   - IT Department
+   - Marketing Department
+   - Sales Department
+   - HR Department
+
+---
+
+## 📊 Demo Module Quản lý Dự án
+
+### Tạo Dự án mới
+
+1. Vào **Dự án** → **Dự án** → **Create**
+2. Điền thông tin:
+   ```
+   Tên dự án: Website Ecommerce
+   Mô tả: Xây dựng website bán hàng online
+   Ngày bắt đầu: 01/01/2026
+   Ngày kết thúc: 31/03/2026
+   Quản lý: Nguyễn Văn A
+   ```
+3. Tab **Thành viên**: Thêm các nhân viên vào dự án
+4. Click **Save**
+
+### Theo dõi tiến độ
+
+- Sử dụng view **Kanban** để xem tổng quan
+- Sử dụng view **List** để xem chi tiết
+- Sử dụng view **Calendar** để xem timeline
+
+---
+
+## ✅ Demo Module Quản lý Công việc
+
+### Tạo Công việc mới
+
+1. Vào **Công việc** → **Công việc** → **Create**
+2. Điền thông tin:
+   ```
+   Tên công việc: Thiết kế giao diện trang chủ
+   Dự án: Website Ecommerce
+   Người thực hiện: Nguyễn Văn B
+   Ngày bắt đầu: 05/01/2026
+   Deadline: 15/01/2026
+   Mức độ ưu tiên: Cao
+   Trạng thái: Đang làm
+   Mô tả: Thiết kế UI/UX cho trang chủ website
+   ```
+3. Đính kèm file thiết kế (nếu có)
+4. Click **Save**
+
+### Workflow công việc
+
+```
+Mới → Đang làm → Hoàn thành
+  ↓                ↓
+  └───────→ Hủy ←─┘
+```
+
+### Nhận thông báo
+
+- Khi được phân công công việc → Nhận thông báo email & in-app
+- Khi công việc sắp hết hạn → Nhận reminder
+- Khi có comment mới → Nhận thông báo
+
+---
+
+## 📬 Demo Module Thông báo
+
+### Tạo Thông báo mới
+
+1. Vào **Thông báo** → **Thông báo** → **Create**
+2. Điền thông tin:
+   ```
+   Tiêu đề: [QUAN TRỌNG] Họp team về dự án Website
+   Loại: 🚨 Khẩn cấp
+   Mức độ ưu tiên: Khẩn cấp
+   Nội dung: Họp team vào 9h sáng ngày mai tại phòng họp A
+   Người nhận: [Chọn nhiều nhân viên]
+   Thời hạn: 02/02/2026 09:00
+   Tags: meeting, urgent
+   ```
+3. Click **Gửi thông báo**
+
+### Dashboard Thống kê
+
+Vào **Thông báo** → **Dashboard** để xem:
+- 📊 Tổng số thông báo theo loại
+- 👥 Tỉ lệ đã đọc/chưa đọc
+- 📈 Biểu đồ phân bố theo thời gian
+- ⚠️ Thông báo quá hạn
+- 🎯 Thông báo theo mức độ ưu tiên
+
+### Các loại thông báo
+
+| Loại | Icon | Sử dụng cho |
+|------|------|-------------|
+| Thông tin | 📘 | Thông báo chung, tin tức |
+| Cảnh báo | ⚠️ | Cần lưu ý, chú ý |
+| Thành công | ✅ | Hoàn thành công việc, milestone |
+| Lỗi | ❌ | Báo lỗi, sự cố |
+| Khẩn cấp | 🚨 | Yêu cầu xử lý ngay |
+
+---
+
+## 💬 Demo Module Chat Nội bộ
+
+### Tạo Phòng chat mới
+
+1. Vào **Chat** → **Phòng chat** → **Create**
+2. Điền thông tin:
+   ```
+   Tên phòng: Team IT - Website Project
+   Mô tả: Thảo luận về dự án Website Ecommerce
+   Loại: Dự án
+   Liên kết dự án: Website Ecommerce
+   ```
+3. Tab **Thành viên**: Thêm nhân viên vào phòng
+4. Click **Save**
+
+### Gửi tin nhắn
+
+1. Vào phòng chat vừa tạo
+2. Nhập tin nhắn ở box chat bên dưới
+3. Có thể:
+   - 📝 Gửi text
+   - 📎 Đính kèm file
+   - 😊 Sử dụng emoji
+4. Click **Gửi**
+
+### Tính năng
+
+- ✅ Realtime messaging
+- 🔔 Thông báo tin nhắn mới
+- 👁️ Hiển thị trạng thái đã đọc
+- 🔍 Tìm kiếm tin nhắn
+- 📎 Lưu trữ file đính kèm
+
+---
+
+## 🎯 Workflow Tích hợp
+
+### Ví dụ: Quy trình làm việc hoàn chỉnh
+
+```
+1. Tạo DỰ ÁN
+   ├─ Tên: Website Ecommerce
+   ├─ Thêm NHÂN VIÊN vào dự án
+   └─ Tự động tạo PHÒNG CHAT cho dự án
+
+2. Tạo CÔNG VIỆC trong dự án
+   ├─ Phân công cho nhân viên
+   ├─ Gửi THÔNG BÁO tự động cho người được giao
+   └─ Thảo luận trong PHÒNG CHAT dự án
+
+3. THEO DÕI tiến độ
+   ├─ Update trạng thái công việc
+   ├─ Gửi THÔNG BÁO khi hoàn thành
+   └─ Comment & thảo luận trong CHAT
+
+4. HOÀN THÀNH dự án
+   ├─ Gửi THÔNG BÁO thành công
+   └─ Lưu trữ chat & tài liệu
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### Lỗi thường gặp
+
+#### 1. Module không xuất hiện trong Apps
+
+```bash
+# Update module list
+python odoo-bin -c odoo.conf -d <database> -u base --stop-after-init
+```
+
+#### 2. Lỗi database connection
+
+- Kiểm tra PostgreSQL đang chạy: `docker ps`
+- Kiểm tra thông tin kết nối trong `odoo.conf`
+- Restart PostgreSQL: `docker-compose restart`
+
+#### 3. Port 8069 đã được sử dụng
+
+```bash
+# Kiểm tra process đang dùng port
+lsof -i :8069  # Linux/Mac
+netstat -ano | findstr :8069  # Windows
+
+# Thay đổi port trong odoo.conf
+xmlrpc_port = 8070
+```
+
+#### 4. Module cài đặt bị lỗi
+
+```bash
+# Xóa module và cài lại
+python odoo-bin -c odoo.conf -d <database> --uninstall <module_name>
+python odoo-bin -c odoo.conf -d <database> -i <module_name>
+```
+
+---
+
+# 📁 Cấu trúc dự án
+
+```
+TTDN-16-04-N9/
+├── 📁 addons/                    # Thư mục chứa modules
+│   ├── 📁 nhan_su/              # ⭐ Module Quản lý Nhân sự
+│   ├── 📁 quan_ly_du_an/        # ⭐ Module Quản lý Dự án
+│   ├── 📁 quan_ly_cong_viec/    # ⭐ Module Quản lý Công việc
+│   ├── 📁 thong_bao/            # ⭐ Module Thông báo
+│   ├── 📁 chat_noi_bo/          # ⭐ Module Chat nội bộ
+│   ├── 📁 auto_backup/          # Module Auto backup
+│   ├── 📁 github_upload/        # Module Upload GitHub
+│   └── ... (Odoo core modules)
+│
+├── 📁 odoo/                      # Odoo core framework
+├── 📁 setup/                     # Setup scripts
+├── 📁 debian/                    # Debian package files
+├── 📁 doc/                       # Documentation
+│
+├── 📄 odoo-bin                   # Odoo executable
+├── 📄 odoo.conf                  # Cấu hình Odoo (tạo từ template)
+├── 📄 odoo.conf.template         # Template cấu hình
+├── 📄 docker-compose.yml         # Docker setup cho PostgreSQL
+├── 📄 requirements.txt           # Python dependencies
+├── 📄 README.md                  # Tài liệu này
+└── 📄 LICENSE                    # License file
+```
+
+---
+
+## 🤝 Đóng góp
+
+Mọi đóng góp đều được chào đón! Vui lòng:
+
+1. Fork repository
+2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Tạo Pull Request
+
+---
+
+## 📝 License
+
+Project này được phân phối dưới giấy phép **LGPL-3**. Xem file `LICENSE` để biết thêm chi tiết.
+
+---
+
+## 👥 Tác giả
+
+- **GitHub**: [@danganh1009](https://github.com/danganh1009)
+- **Repository**: [TTDN-16-04-N9](https://github.com/danganh1009/TTDN-16-04-N9)
+
+---
+
+## 📧 Liên hệ & Hỗ trợ
+
+- **Email**: admin@example.com
+- **Website**: http://www.yourcompany.com
+
+---
+
+## 🎓 Tài liệu tham khảo
+
+- [Odoo Official Documentation](https://www.odoo.com/documentation/16.0/)
+- [Odoo Developer Tutorial](https://www.odoo.com/documentation/16.0/developer.html)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [Python Documentation](https://docs.python.org/3.10/)
+
+---
+
+<div align="center">
+
+### ⭐ Nếu project hữu ích, đừng quên cho một star! ⭐
+
+Made with ❤️ by FITDNU Team
+
+</div>
     
