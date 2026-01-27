@@ -394,6 +394,14 @@ Mở trình duyệt và truy cập:
    - Sales Department
    - HR Department
 
+#### 📸 Screenshots
+
+![Dashboard Nhân sự](docs/images/nhan-su-dashboard.png)
+*Dashboard tổng quan quản lý nhân sự*
+
+![Form Nhân viên](docs/images/nhan-vien-form.png)
+*Form tạo/chỉnh sửa thông tin nhân viên*
+
 ---
 
 ## 📊 Demo Module Quản lý Dự án
@@ -463,6 +471,14 @@ Mới → Đang làm → Hoàn thành
 - Khi công việc sắp hết hạn → Nhận reminder
 - Khi có comment mới → Nhận thông báo
 
+#### 📸 Screenshots
+
+![Kanban Công việc](docs/images/cong-viec-kanban.png)
+*Kanban board quản lý công việc theo trạng thái*
+
+![Form Công việc](docs/images/cong-viec-form.png)
+*Form chi tiết công việc với đầy đủ thông tin*
+
 ---
 
 ## 📬 Demo Module Thông báo
@@ -505,6 +521,14 @@ Vào **Thông báo** → **Dashboard** để xem:
 | Lỗi | ❌ | Báo lỗi, sự cố |
 | Khẩn cấp | 🚨 | Yêu cầu xử lý ngay |
 
+#### 📸 Screenshots
+
+![Danh sách Thông báo](docs/images/thong-bao-list.png)
+*Danh sách thông báo với các loại và mức độ ưu tiên*
+
+![Kanban Thông báo](docs/images/thong-bao-kanban.png)
+*Kanban view thông báo theo trạng thái đọc/chưa đọc*
+
 ---
 
 ## 💬 Demo Module Chat Nội bộ
@@ -545,6 +569,62 @@ Vào **Thông báo** → **Dashboard** để xem:
 - 👁️ Hiển thị trạng thái đã đọc
 - 🔍 Tìm kiếm tin nhắn
 - 📎 Lưu trữ file đính kèm
+
+#### 📸 Screenshots
+
+![Danh sách Phòng chat](docs/images/chat-room-list.png)
+*Danh sách các phòng chat đang tham gia*
+
+![Giao diện Chat](docs/images/chat-interface.png)
+*Giao diện chat realtime với tin nhắn và file đính kèm*
+
+![Form Phòng chat](docs/images/chat-room-form.png)
+*Tạo và quản lý thành viên phòng chat*
+
+---
+
+## 🤖 Demo Module AI Chatbot
+
+### Sử dụng AI Assistant
+
+1. Vào bất kỳ **Phòng chat** nào
+2. Gõ `@ai` trước câu hỏi của bạn
+3. AI sẽ trả lời dựa trên dữ liệu thực tế
+
+### Các lệnh AI thường dùng
+
+```
+@ai có bao nhiêu task?
+→ AI liệt kê số lượng task theo trạng thái
+
+@ai task nào sắp đến deadline?
+→ AI cảnh báo các task sắp hết hạn
+
+@ai tóm tắt chat hôm nay
+→ AI tóm tắt nội dung cuộc trò chuyện
+
+@ai tạo task thiết kế UI deadline 15/02
+→ AI tạo task mới từ lệnh
+
+@ai dự án nào đang chậm tiến độ?
+→ AI phân tích tình hình các dự án
+
+@ai gợi ý task tiếp theo
+→ AI gợi ý task dựa trên priority
+```
+
+### Tính năng nổi bật
+
+- 🎯 **Thông minh**: Hiểu ngữ cảnh và trả lời chính xác
+- ⚡ **Nhanh chóng**: Phản hồi tức thì trong chat
+- 📊 **Phân tích**: Đưa ra insight về dự án và task
+- ✅ **Hành động**: Có thể tạo task, cập nhật trạng thái
+- 🔗 **Tích hợp**: Kết nối với tất cả module khác
+
+#### 📸 Screenshots
+
+![AI Chatbot Demo](docs/images/ai-chatbot-demo.png)
+*AI Assistant trả lời câu hỏi và tạo task từ chat*
 
 ---
 
