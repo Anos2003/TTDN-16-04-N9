@@ -125,6 +125,29 @@ Hệ thống ERP tích hợp đầy đủ được xây dựng trên nền tản
 
 **Đối tượng sử dụng**: Tất cả nhân viên
 
+---
+
+### 6️⃣ AI Chatbot Assistant (`ai_chatbot`)
+**Mô tả**: Trợ lý AI thông minh tích hợp vào Chat Nội bộ để hỗ trợ quản lý công việc và dự án
+
+**Tính năng**:
+- 🤖 **AI Assistant tích hợp**: Trực tiếp trong phòng chat nội bộ
+- ❓ **Trả lời câu hỏi**: Về task, deadline, người phụ trách, thông tin dự án
+- 📝 **Tóm tắt cuộc trò chuyện**: Tự động tóm tắt nội dung chat trong phòng
+- ✅ **Tạo task từ chat**: Chuyển đổi yêu cầu thành công việc cụ thể
+- ⏰ **Cảnh báo thông minh**: Nhắc nhở về deadline và công việc trễ hạn
+- 🎯 **Gợi ý ưu tiên**: Đề xuất task tiếp theo dựa trên độ ưu tiên
+- 📊 **Phân tích dự án**: Báo cáo tình hình tiến độ và hiệu suất
+
+**Cách sử dụng**:
+- Trong bất kỳ phòng chat nào, gõ `@ai` trước câu hỏi
+- Ví dụ: 
+  - `@ai có bao nhiêu task?`
+  - `@ai tóm tắt chat hôm nay`
+  - `@ai task nào sắp hết hạn?`
+
+**Đối tượng sử dụng**: Tất cả nhân viên, đặc biệt hữu ích cho Manager và Team Lead
+
 ## 💻 Yêu cầu hệ thống
 
 ### Phần cứng tối thiểu
@@ -336,11 +359,15 @@ Mở trình duyệt và truy cập:
 4. thong_bao (Thông báo) - Phụ thuộc nhan_su, quan_ly_du_an, quan_ly_cong_viec
    ↓
 5. chat_noi_bo (Chat nội bộ) - Phụ thuộc nhan_su, quan_ly_du_an
+   ↓
+6. ai_chatbot (AI Chatbot Assistant) - Phụ thuộc nhan_su, chat_noi_bo, quan_ly_cong_viec, quan_ly_du_an
 ```
 
 ---
 
 ## 👥 Demo Module Quản lý Nhân sự
+
+![Giao diện Quản lý Nhân sự](docs/images/nhan-su-dashboard.png)
 
 ### Tạo Nhân viên mới
 
@@ -356,6 +383,8 @@ Mở trình duyệt và truy cập:
    ```
 3. Click **Save**
 
+![Form Nhân viên](docs/images/nhan-vien-form.png)
+
 ### Quản lý Phòng ban
 
 1. Vào **Nhân sự** → **Phòng ban** → **Create**
@@ -368,6 +397,8 @@ Mở trình duyệt và truy cập:
 ---
 
 ## 📊 Demo Module Quản lý Dự án
+
+![Danh sách Dự án](docs/images/du-an-list.png)
 
 ### Tạo Dự án mới
 
@@ -383,15 +414,21 @@ Mở trình duyệt và truy cập:
 3. Tab **Thành viên**: Thêm các nhân viên vào dự án
 4. Click **Save**
 
+![Form Dự án](docs/images/du-an-form.png)
+
 ### Theo dõi tiến độ
 
 - Sử dụng view **Kanban** để xem tổng quan
 - Sử dụng view **List** để xem chi tiết
 - Sử dụng view **Calendar** để xem timeline
 
+![Gantt Chart Dự án](docs/images/du-an-gantt.png)
+
 ---
 
 ## ✅ Demo Module Quản lý Công việc
+
+![Kanban Công việc](docs/images/cong-viec-kanban.png)
 
 ### Tạo Công việc mới
 
@@ -409,6 +446,8 @@ Mở trình duyệt và truy cập:
    ```
 3. Đính kèm file thiết kế (nếu có)
 4. Click **Save**
+
+![Form Công việc](docs/images/cong-viec-form.png)
 
 ### Workflow công việc
 
@@ -428,6 +467,8 @@ Mới → Đang làm → Hoàn thành
 
 ## 📬 Demo Module Thông báo
 
+![Danh sách Thông báo](docs/images/thong-bao-list.png)
+
 ### Tạo Thông báo mới
 
 1. Vào **Thông báo** → **Thông báo** → **Create**
@@ -442,6 +483,8 @@ Mới → Đang làm → Hoàn thành
    Tags: meeting, urgent
    ```
 3. Click **Gửi thông báo**
+
+![Kanban Thông báo](docs/images/thong-bao-kanban.png)
 
 ### Dashboard Thống kê
 
@@ -466,6 +509,8 @@ Vào **Thông báo** → **Dashboard** để xem:
 
 ## 💬 Demo Module Chat Nội bộ
 
+![Danh sách Phòng chat](docs/images/chat-room-list.png)
+
 ### Tạo Phòng chat mới
 
 1. Vào **Chat** → **Phòng chat** → **Create**
@@ -479,6 +524,8 @@ Vào **Thông báo** → **Dashboard** để xem:
 3. Tab **Thành viên**: Thêm nhân viên vào phòng
 4. Click **Save**
 
+![Form Phòng chat](docs/images/chat-room-form.png)
+
 ### Gửi tin nhắn
 
 1. Vào phòng chat vừa tạo
@@ -489,6 +536,8 @@ Vào **Thông báo** → **Dashboard** để xem:
    - 😊 Sử dụng emoji
 4. Click **Gửi**
 
+![Giao diện Chat](docs/images/chat-interface.png)
+
 ### Tính năng
 
 - ✅ Realtime messaging
@@ -496,6 +545,58 @@ Vào **Thông báo** → **Dashboard** để xem:
 - 👁️ Hiển thị trạng thái đã đọc
 - 🔍 Tìm kiếm tin nhắn
 - 📎 Lưu trữ file đính kèm
+
+---
+
+## 🤖 Demo Module AI Chatbot Assistant
+
+![AI Chatbot trong Chat](docs/images/ai-chatbot-demo.png)
+
+### Sử dụng AI Assistant
+
+1. Vào **bất kỳ phòng chat nào** đã tạo
+2. Gõ `@ai` trước câu hỏi của bạn
+3. Ví dụ các lệnh:
+
+**Hỏi về công việc:**
+```
+@ai có bao nhiêu task đang làm?
+@ai task nào sắp hết hạn?
+@ai ai đang làm task thiết kế UI?
+```
+
+**Tóm tắt cuộc trò chuyện:**
+```
+@ai tóm tắt chat hôm nay
+@ai những điểm chính trong cuộc họp?
+```
+
+**Tạo công việc mới:**
+```
+@ai tạo task thiết kế database, deadline 15/02, giao cho Nguyễn Văn A
+```
+
+**Phân tích dự án:**
+```
+@ai tình hình dự án Website thế nào?
+@ai có task nào bị trễ không?
+@ai gợi ý task nên làm tiếp theo
+```
+
+### Tính năng AI
+
+- 🧠 **Hiểu ngữ cảnh**: AI hiểu được context của dự án và các task
+- ⚡ **Trả lời nhanh**: Phản hồi trong vài giây
+- 📊 **Phân tích thông minh**: Đưa ra insight về tiến độ công việc
+- 🎯 **Gợi ý hành động**: Đề xuất task ưu tiên dựa trên deadline và priority
+- ⏰ **Cảnh báo proactive**: Nhắc nhở về deadline sắp tới
+- 📝 **Tóm tắt tự động**: Tổng hợp các điểm quan trọng từ cuộc trò chuyện
+
+### Lưu ý
+
+- AI chỉ hoạt động trong phòng chat đã cài đặt module `ai_chatbot`
+- Cần có ít nhất 1 dự án và một số task để AI có thể phân tích
+- AI không thể thực hiện các thao tác yêu cầu quyền đặc biệt (xóa, thay đổi quyền)
 
 ---
 
@@ -574,6 +675,7 @@ TTDN-16-04-N9/
 │   ├── 📁 quan_ly_cong_viec/    # ⭐ Module Quản lý Công việc
 │   ├── 📁 thong_bao/            # ⭐ Module Thông báo
 │   ├── 📁 chat_noi_bo/          # ⭐ Module Chat nội bộ
+│   ├── 📁 ai_chatbot/           # ⭐ Module AI Chatbot Assistant
 │   ├── 📁 auto_backup/          # Module Auto backup
 │   ├── 📁 github_upload/        # Module Upload GitHub
 │   └── ... (Odoo core modules)
@@ -637,9 +739,5 @@ Project này được phân phối dưới giấy phép **LGPL-3**. Xem file `LI
 
 <div align="center">
 
-### ⭐ Nếu project hữu ích, đừng quên cho một star! ⭐
 
-Made with ❤️ by FITDNU Team
-
-</div>
     
