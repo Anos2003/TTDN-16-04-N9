@@ -796,7 +796,7 @@ Project này được phân phối dưới giấy phép **LGPL-3**. Xem file `LI
 
 ## 👥 Tác giả
 
-- **GitHub**: [@danganh1009](https://github.com/danganh1009)
+- **GitHub**: [@danganh1009](https://github.com/danganh1009),[Anos2003](https://github.com/Anos2003)
 - **Repository**: [TTDN-16-04-N9](https://github.com/danganh1009/TTDN-16-04-N9)
 
 ---
